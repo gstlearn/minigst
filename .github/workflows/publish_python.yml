@@ -85,9 +85,9 @@ jobs:
     # Upload packages to pypi
     - uses: fabien-ors/pypi-publish-action@v3
       with:
-        repo: testpypi
+        repo: pypi
         username: __token__
-        password: ${{ secrets.TWINE_TEST_TOKEN }} # ${{ secrets.TWINE_PYPI_PWD }}
+        password: ${{ secrets.TWINE_PYPI_PWD }}
         pattern: python-package
 
     # Delete the artifacts (for freeing storage space under github)

@@ -37,14 +37,6 @@ jobs:
       with:
         r-version: ${{env.R_VERSION}}
 
-#    - name: Install R dependencies
-#      run: |
-#        Rscript -e "install.packages (
-#          c('ggplot2', 
-##            'ggpubr', 
-#            'ggnewscale'),
-#            repos='https://cloud.r-project.org/')"
-
     - uses: r-lib/actions/setup-r-dependencies@v2
       with:
         packages: ggplot2, ggpubr, ggnewscale
@@ -58,6 +50,9 @@ jobs:
       run: |
         cd R
         R CMD INSTALL --build --no-multiarch .
+        foreach f (minigst_*_R_x86_64-pc-linux-gnu.tar.gz)
+          mv "$f" `echo "$f" | sed 's/_R_x86_64-pc-linux-gnu//'`
+        end
         cd ..
         echo "MY_PKG=$(ls R/minigst_*.tar.gz)" >> "$GITHUB_ENV"
 
