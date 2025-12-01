@@ -50,9 +50,9 @@ jobs:
       run: |
         cd R
         R CMD INSTALL --build --no-multiarch .
-        foreach f (minigst_*_R_x86_64-pc-linux-gnu.tar.gz)
-          mv "$f" `echo "$f" | sed 's/_R_x86_64-pc-linux-gnu//'`
-        end
+        for f in minigst_*_R_x86_64-pc-linux-gnu.tar.gz; do
+            mv "$f" "${f/_R_x86_64-pc-linux-gnu/}"
+        done
         cd ..
         echo "MY_PKG=$(ls R/minigst_*.tar.gz)" >> "$GITHUB_ENV"
 
