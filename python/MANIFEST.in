@@ -1,3 +1,0 @@
-include README.md
-recursive-include minigst *.py
-recursive-include examples *.py *.ipynb

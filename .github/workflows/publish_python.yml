@@ -1,0 +1,97 @@
+name: publish_python
+
+on:
+  # Permit calling the workflow from outside (https://github.com/actions/runner/discussions/1884)
+  workflow_call:
+    inputs:
+      dry_publish:
+        description: 'Dry publish (no upload)'
+        type: boolean
+        required: false
+        default: true
+  # Permit manual trigger
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Manual'
+        required: false
+        default: ''
+      dry_publish:
+        description: 'Dry publish (no upload)'
+        type: boolean
+        required: false
+        default: false
+
+env:
+  PYTHON_VERSION : 3.13
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup uv
+      uses: astral-sh/setup-uv@v6
+      with:
+        python-version: ${{env.PYTHON_VERSION}}
+        activate-environment: true
+
+    - name : Create Wheel
+      run : |
+        cd python
+        uv build --wheel
+        cd ..
+        echo "MY_PKG=$(ls python/dist/*.whl)" >> "$GITHUB_ENV"
+
+    - uses: actions/upload-artifact@v4
+      with:
+        name: python-package
+        path: ${{env.MY_PKG}}
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: actions/download-artifact@v4
+      with:
+        name: python-package
+
+    - name: Setup uv
+      uses: astral-sh/setup-uv@v6
+      with:
+        python-version: ${{env.PYTHON_VERSION}}
+        activate-environment: true
+
+    - name: Install Python package
+      run: |
+        uv pip install "./$(ls *.whl)"
+
+    - name: Test installed Python package
+      run: |
+        uv run python -c 'import minigst as mg; print(f"minigst version: {mg.__version__}")'
+
+  publish:
+    needs: test
+    if: ${{inputs.dry_publish == false}}
+
+    runs-on: ubuntu-latest
+
+    steps:
+    # Upload packages to pypi
+    - uses: fabien-ors/pypi-publish-action@v2
+      with:
+        repo: testpypi
+        username: __token__
+        password: ${{ secrets.TWINE_TEST_TOKEN }} # ${{ secrets.TWINE_PYPI_PWD }}
+        pattern: python-package
+
+    # Delete the artifacts (for freeing storage space under github)
+    - uses: geekyeggo/delete-artifact@v5
+      with:
+        name: python-package
+
