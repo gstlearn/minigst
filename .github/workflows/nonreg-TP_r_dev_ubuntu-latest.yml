@@ -24,7 +24,7 @@ on:
 env:
   CMAKE_BUILD_TYPE : Release
   BUILD_DIR : build
-  R_VERSION : "4.5.0"
+  R_VERSION : "4.5.2"
   GSTLEARN_ROOT : ${{github.workspace}}/gstlearn
   SWIG_ROOT : ${{github.workspace}}/swig
 
