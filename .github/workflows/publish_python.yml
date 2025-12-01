@@ -82,13 +82,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # Upload packages to pypi
-    - uses: fabien-ors/pypi-publish-action@v3
+
+    - uses: actions/download-artifact@v4
       with:
-        repo: pypi
-        username: __token__
-        password: ${{ secrets.TWINE_PYPI_PWD }}
-        pattern: python-package
+        name: python-package
+
+    - name: Setup uv
+      uses: astral-sh/setup-uv@v6
+      with:
+        python-version: ${{env.PYTHON_VERSION}}
+        activate-environment: true
+        enable-cache: false
+
+    - name: Upload package to pypi
+      run: |
+        uv publish "./$(ls *.whl)"
+      env:
+        UV_PUBLISH_USERNAME: __token__
+        UV_PUBLISH_PASSWORD: ${{ secrets.TWINE_TEST_TOKEN }}
+        UV_PUBLISH_URL: "https://test.pypi.org/legacy/"
+        UV_PUBLISH_CHECK_URL: "https://test.pypi.org/simple/"
 
     # Delete the artifacts (for freeing storage space under github)
     - uses: geekyeggo/delete-artifact@v5
