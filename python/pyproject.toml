@@ -7,7 +7,8 @@ name = "minigst"
 version = "0.1.0"
 description = "Wrapper package for gstlearn - Python version"
 readme = "README.md"
-license = {text = 'BSD-3-Clause'}
+license = "BSD-3-Clause"
+license-files = ["LICENSE"]
 authors = [
     {name = "Emilie Chautru", email = "emilie.chautru@minesparis.psl.eu"},
     {name = "Mike Pereira", email = "mike.pereira@minesparis.psl.eu"},
@@ -37,7 +38,6 @@ Homepage = "https://github.com/gstlearn/minigst"
 
 
 [tool.setuptools]
-license-files = []
 include-package-data = true
 
 [tool.setuptools.package-data]
