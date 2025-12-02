@@ -56,19 +56,9 @@ jobs:
       with:
         r-version: ${{env.R_VERSION}}
 
-    - name: Install R dependencies
-      run: |
-        Rscript -e "install.packages (
-          c('ggplot2', 
-            'ggpubr', 
-            'ggnewscale',
-            'knitr',
-            'callr',
-            'rmarkdown',
-            'sp',
-            'fields',
-            'geoR'),
-            repos='https://cloud.r-project.org/')"
+    - uses: r-lib/actions/setup-r-dependencies@v2
+      with:
+        packages: ggplot2, ggpubr, ggnewscale
 
     - name: Install the customized SWIG from source
       uses: fabien-ors/install-swig-unix-action@v1
