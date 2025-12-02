@@ -132,7 +132,7 @@ jobs:
           pattern: "r-package"
 
       - env:
-          PROJECT_FULL_VERSION: ${{needs.get-version.outputs.project_full_version}}
+          PROJECT_FULL_VERSION: ${{needs.build.outputs.project_full_version}}
         uses: fabien-ors/files-publish-action@v3
         with:
           host: ${{ secrets.CG_HOST }}
