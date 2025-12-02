@@ -44,7 +44,7 @@ jobs:
 
     - uses: r-lib/actions/setup-r-dependencies@v2
       with:
-        packages: ggplot2, ggpubr, ggnewscale
+        packages: ggplot2, ggpubr, ggnewscale, fields, callr, knitr, sp, geoR
 
     - name: Install gstlearn
       run: |
