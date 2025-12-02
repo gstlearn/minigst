@@ -28,6 +28,9 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      # https://docs.github.com/en/actions/using-jobs/defining-outputs-for-jobs
+      project_full_version: ${{ steps.main_step.outputs.PROJECT_FULL_VERSION }}
 
     steps:
     - uses: actions/checkout@v4
@@ -53,6 +56,27 @@ jobs:
         cd ..
         echo "MY_PKG=$(ls R/minigst_*.tar.gz)" >> "$GITHUB_ENV"
 
+    - name: Get project version
+      id: main_step
+      run: |
+        cd R
+        PROJECT_FULL_VERSION=$(grep Version DESCRIPTION | cut -d : -f2 | sed 's/^[[:space:]]*//g')
+        echo "PROJECT_FULL_VERSION=${PROJECT_FULL_VERSION}" >> "$GITHUB_OUTPUT"
+
+    - name: Install Python dependencies for README generation
+      run: |
+        python3 -m pip install grip
+
+    - name: Generate R Readme file using grip
+      run: |
+        python3 -m grip R/README.md --export R/R_README.html
+        echo "R_README_FILE=$(ls R/R_README.html)" >> "$GITHUB_ENV"
+
+    - uses: actions/upload-artifact@v4
+      with:
+        name: r-readme
+        path: ${{env.R_README_FILE}}
+        
     - uses: actions/upload-artifact@v4
       with:
         name: r-package
@@ -98,13 +122,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Upload packages to pypi
+      # Upload packages to CRAN-like repository
       - uses: fabien-ors/cran-publish-action@v4
         with:
           host: ${{secrets.CG_HOST}}
           username: ${{secrets.CG_USR}}
           password: ${{secrets.CG_PWD}}
           repo-path: "/var/www/html/cran"
+          pattern: "r-package"
+
+      - env:
+          PROJECT_FULL_VERSION: ${{needs.get-version.outputs.project_full_version}}
+        uses: fabien-ors/files-publish-action@v3
+        with:
+          host: ${{ secrets.CG_HOST }}
+          username: ${{ secrets.CG_USR }}
+          password: ${{ secrets.CG_PWD }}
+          dest-path: "/var/www/html/minigst/${{env.PROJECT_FULL_VERSION}}"
+          pattern: "R_README.html"
 
       # Delete the artifacts (for freeing storage space under github)
       - uses: geekyeggo/delete-artifact@v5
