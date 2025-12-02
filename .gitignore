@@ -13,5 +13,13 @@ TP/.ipynb_checkpoints/
 lib
 minigst.egg-info
 *__pycache__/
+.venv
 */build/
+*/dist/
+*.pyc
+*.pyo
+*.pyd
 *.tar.gz
+*.NF
+*.csv
+.ruff_cache

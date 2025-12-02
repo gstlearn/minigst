@@ -17,16 +17,7 @@ flist=$(ls $in_dir/*.Rmd)
 for fsc in $flist 
 do
   echo "  Processing $fsc"
-  # Convert to R script and execute
-  R CMD BATCH --no-save --no-restore "--args $fsc $out_dir R" $runner
-  if [ $? -ne 0 ]
-  then
-    echo "  Error processing $fsc"
-    cat run_test_rmd.Rout
-    exit -1
-  fi
-  cat run_test_rmd.Rout
-  # Do the same with R markdown for generating html files
+  # Execute R markdown for generating html files
   R CMD BATCH --no-save --no-restore "--args $fsc $out_dir html" $runner
   if [ $? -ne 0 ]
   then
@@ -34,7 +25,6 @@ do
     cat run_test_rmd.Rout
     exit -1
   fi
-  cat run_test_rmd.Rout
 done
 
 echo "Done"
