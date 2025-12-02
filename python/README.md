@@ -10,11 +10,24 @@ This Python package wraps gstlearn functions to offer access to some basic geost
 
 You need Python 3.8 or higher. You will also need to install the gstlearn Python package. Please refer to the [gstlearn documentation](https://gstlearn.org) for installation instructions.
 
-### Installing minigst
 
-You can install the minigst package using pip:
+### Installing minigst from our pypi (official release)
+
+You can install the official release of minigst package using pip:
 
 ```bash
+cd python
+pip install minigst
+```
+
+
+### Installing minigst from sources
+
+After cloning the github repo, you can install the minigst package from source using pip:
+
+```bash
+git clone https://github.com/gstlearn/minigst
+cd minigst
 cd python
 pip install .
 ```
@@ -22,6 +35,8 @@ pip install .
 Or for development:
 
 ```bash
+git clone https://github.com/gstlearn/minigst
+cd minigst
 cd python
 pip install -e .
 ```

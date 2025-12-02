@@ -10,11 +10,21 @@ This R package wraps gstlearn functions to offer access to some basic geostatist
 
 You need R 4.0 or higher. You will also need to install the gstlearn R package. Please refer to the [gstlearn documentation](https://gstlearn.org) for installation instructions.
 
-### Installing minigst
+### Installing minigst from our CRAN (official release)
 
-You can install the minigst package using the following shell command:
+You can install the official release of minigst package using the following R command:
+
+```R
+install.packages("minigst", repos="https://soft.mines-paristech.fr/cran")
+```
+
+### Installing minigst from source
+
+After cloning the github repo, you can install the minigst package from source using the following shell command:
 
 ```bash
+git clone https://github.com/gstlearn/minigst
+cd minigst
 cd R
 R CMD INSTALL .
 ```
