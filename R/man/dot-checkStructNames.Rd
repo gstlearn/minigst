@@ -2,11 +2,11 @@
 % Please edit documentation in R/vario.R
 \name{.checkStructNames}
 \alias{.checkStructNames}
-\title{Wraper for the function that doesn't crash R if names are mispecified}
+\title{Wrapper for the function that doesn't crash R if names are mispecified}
 \usage{
 .checkStructNames(struct_names)
 }
 \description{
-Wraper for the function that doesn't crash R if names are mispecified
+Wrapper for the function that doesn't crash R if names are mispecified
 }
 \keyword{internal}

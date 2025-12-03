@@ -95,7 +95,7 @@ def minikriging(
     if isinstance(vname, str):
         vname = [vname]
 
-    # Remove previuous runs with same name
+    # Remove previous runs with same name
     vdel = [prefix + "." + v + "." + "estim" for v in vname]
     vdel = vdel + [prefix + "." + v + "." + "stdev" for v in vname]
     dbout.deleteColumns(vdel)
@@ -234,7 +234,7 @@ def minixvalid(
     if isinstance(vname, str):
         vname = [vname]
 
-    # Remove previuous runs with same name
+    # Remove previous runs with same name
     vdel = [prefix + "." + v + "." + "esterr" for v in vname]
     vdel = vdel + [prefix + "." + v + "." + "stderr" for v in vname]
     dbin.deleteColumns(vdel)

@@ -335,7 +335,7 @@ bubblePlot(meuse.grid$x, meuse.grid$y, sqrt(k.grid$krige.var), asp=1)
 
 # Comparison and interpretation
 
-8. Compare the results obtained through variogram fitting and with `correlation()`. Interprete.
+8. Compare the results obtained through variogram fitting and with `correlation()`. Interpret.
 
 ```{r}
 

@@ -86,11 +86,11 @@
 #'
 #' @details The parameter \code{toldis} represents a tolerance on the distance when computing the variogram value, and is expressed as proportion.
 #' For  a given lag value \eqn{h}, all the pairs separated by distance between (\code{h}-\code{toldis}*\code{dlag}) and (\code{h}+\code{toldis}*\code{dlag})
-#' are used to compute the correponding variogram value \eqn{gamma(h)}.
+#' are used to compute the corresponding variogram value \eqn{gamma(h)}.
 #'
 #' The parameter \code{tolang} represents a tolerance on the angle and is expressed as an angle.
 #' For a given lag value \eqn{h} and a given angle \eqn{theta}, all the pairs with an angle between (\eqn{theta}-\code{tolang}) and (\eqn{theta}+\code{tolang})
-#' are used to compute the correponding variogram value \eqn{gamma(h)}.
+#' are used to compute the corresponding variogram value \eqn{gamma(h)}.
 #' 
 #' Finally, note that when adding external drifts, a constant drift (bias term) is automatically added as well.
 #'
@@ -163,7 +163,7 @@ vario_exp<-function(db,vname, polDrift = NULL, extDrift=NULL,dir=NULL,nlag=20, d
 #' @details The variogram cloud is computed as a 2D grid with dimensions given by \code{gridRes}. The first axis discretizes the set of possible distances between pairs of points in \code{db}.
 #' The second axis discretizes the set of possible variogram values between between pairs of points in \code{db}. The value computed at a given grid node corresponds to the number of pairs of points in \code{db} falling in the corresponding grid cell.
 #'
-#' @return A DbGrid containing the computed variogram cloud, where the number of pairs are stored in each grid cell are stored in a variable calle `Cloud.vname`.
+#' @return A DbGrid containing the computed variogram cloud, where the number of pairs are stored in each grid cell are stored in a variable called `Cloud.vname`.
 #'
 #' @export
 #'
@@ -339,7 +339,7 @@ model_fit<-function(vario,polDrift=NULL,extDrift=NULL,struct="SPHERICAL",pruneMo
     setVar(vario,vn)
     err = model$fitFromVMap(vario, types=types, optvar=Option_VarioFit(flag_noreduce=pruneModel,auth_aniso=anisoModel))
   }else{
-    stop("The argument 'vario' expects either an experimental variogram or a DbGrid conatining a variogram map.")
+    stop("The argument 'vario' expects either an experimental variogram or a DbGrid containing a variogram map.")
   }
   
   return(model)
@@ -386,7 +386,7 @@ printAllStruct<-function(){
 
 
 #'
-#' Wraper for the function that doesn't crash R if names are mispecified
+#' Wrapper for the function that doesn't crash R if names are mispecified
 #'
 #' @keywords internal
 #'
@@ -443,7 +443,7 @@ printAllStruct<-function(){
 #' struct_names = c("SPHERICAL", "K-BESSEL")
 #' ranges=c(0.3,0.5)
 #' variances=c(0.1,1)
-#' params=c(1,1) # The first value will be ignored since the correponding covariance function ("SPHERICAL") does not require an extra parameter.
+#' params=c(1,1) # The first value will be ignored since the corresponding covariance function ("SPHERICAL") does not require an extra parameter.
 #'
 #' ## Create model
 #' model=createModel(struct=struct_names, range = ranges, sill = variances, param = params,ndim=2)
@@ -580,7 +580,7 @@ model_eval<-function(x=NULL,y=NULL,h=NULL,dir=NULL, model=createModel(),mode="CO
 #' ## Create model
 #' model=createModel(struct=c("EXPONENTIAL", "NUGGET"), range = 0.3, sill = c(1,0.1), ndim=2)
 #'
-#' ## Evaluate the covriance matrix on some random points in the unit square
+#' ## Evaluate the covariance matrix on some random points in the unit square
 #' xx=matrix(runif(20),nrow=10,ncol=2)
 #' yy=matrix(runif(10),nrow=5,ncol=2)
 #' covMat=model_covMat(x=xx,y=yy,model=model,mode="COV")

@@ -44,11 +44,11 @@ Function to compute an experimental variogram for a single variable, or experime
 \details{
 The parameter \code{toldis} represents a tolerance on the distance when computing the variogram value, and is expressed as proportion.
 For  a given lag value \eqn{h}, all the pairs separated by distance between (\code{h}-\code{toldis}*\code{dlag}) and (\code{h}+\code{toldis}*\code{dlag})
-are used to compute the correponding variogram value \eqn{gamma(h)}.
+are used to compute the corresponding variogram value \eqn{gamma(h)}.
 
 The parameter \code{tolang} represents a tolerance on the angle and is expressed as an angle.
 For a given lag value \eqn{h} and a given angle \eqn{theta}, all the pairs with an angle between (\eqn{theta}-\code{tolang}) and (\eqn{theta}+\code{tolang})
-are used to compute the correponding variogram value \eqn{gamma(h)}.
+are used to compute the corresponding variogram value \eqn{gamma(h)}.
 
 Finally, note that when adding external drifts, a constant drift (bias term) is automatically added as well.
 }

@@ -42,7 +42,7 @@ library(minigst)
 struct_names = c("SPHERICAL", "K-BESSEL")
 ranges=c(0.3,0.5)
 variances=c(0.1,1)
-params=c(1,1) # The first value will be ignored since the correponding covariance function ("SPHERICAL") does not require an extra parameter.
+params=c(1,1) # The first value will be ignored since the corresponding covariance function ("SPHERICAL") does not require an extra parameter.
 
 ## Create model
 model=createModel(struct=struct_names, range = ranges, sill = variances, param = params,ndim=2)

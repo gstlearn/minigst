@@ -16,14 +16,14 @@ getSeq<-function(v,n=4,nd=3){
 #' @param color,cat_color Name of the variable defining the color of the points: use `color` for continuous variables and `cat_color` for categorical variables.
 #' @param size Name of the variable defining the size of the points.
 #' @param cmap Color map used to plot the points by color. Can be specified by a name (cf. \code{\link{printAllPalettes}} to display available choices), or by a vector of color names which will be interpolated to create a palette.
-#' @param colValLimits Range of values for teh color mapping.
+#' @param colValLimits Range of values for the color mapping.
 #' @param naColor Color used for NA values.
 #' @param pointColor Default color of points when \code{color} is not specified.
 #' @param pointSize Default size of points when \code{size} is not specified.
 #' @param sizeRange Vector specifying the range of sizes when plotting the points by size.
 #' @param absSize Whether the absolute value of the variable should be used to define the size of the points.
 #' @param hideLegend Whether to hide the legend.
-#' @param legendTitle Title(s) of the legend: either a single string if just the color or the size if plotted, or a vector containing respectively the title of the color legende and the title of the size legend. Setting the legend title to `NA` means that the name of the variable is used as a title.
+#' @param legendTitle Title(s) of the legend: either a single string if just the color or the size if plotted, or a vector containing respectively the title of the color legend and the title of the size legend. Setting the legend title to `NA` means that the name of the variable is used as a title.
 #' @param asp Aspect ratio of the plot: 0 = No scaling of the axes, 1 = Axes have the same scale.
 #' @param xlab Title of the x-axis.
 #' @param ylab Title of the y-axis.
@@ -269,9 +269,9 @@ addPoints<-function(plt=last.plot(),x=NULL,y=NULL,color="black", shape = 16, siz
 #'
 #' @param dbGrid DbGrid object.
 #' @param color,cat_color Name of the variable defining the color of the points: use `color` for continuous variables and `cat_color` for categorical variables.
-#' @param contour Name of the variable defining the countours of the plot.
-#' @param cmap Color map used to plot the points by color. Can be specified by a name (cf. \code{\link{printAllPalettes}} to display vailable choices), or by a vector of color names which will be interpolated to create a palette.
-#' @param colValLimits Range of values for teh color mapping.
+#' @param contour Name of the variable defining the contours of the plot.
+#' @param cmap Color map used to plot the points by color. Can be specified by a name (cf. \code{\link{printAllPalettes}} to display available choices), or by a vector of color names which will be interpolated to create a palette.
+#' @param colValLimits Range of values for the color mapping.
 #' @param naColor Color used for NA values.
 #' @param nLevels Number of levels for the contour plot.
 #' @param hideLegend Whether to hide the legend.

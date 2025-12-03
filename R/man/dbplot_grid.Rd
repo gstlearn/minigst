@@ -25,11 +25,11 @@ dbplot_grid(
 \arguments{
 \item{color, cat_color}{Name of the variable defining the color of the points: use `color` for continuous variables and `cat_color` for categorical variables.}
 
-\item{contour}{Name of the variable defining the countours of the plot.}
+\item{contour}{Name of the variable defining the contours of the plot.}
 
-\item{cmap}{Color map used to plot the points by color. Can be specified by a name (cf. \code{\link{printAllPalettes}} to display vailable choices), or by a vector of color names which will be interpolated to create a palette.}
+\item{cmap}{Color map used to plot the points by color. Can be specified by a name (cf. \code{\link{printAllPalettes}} to display available choices), or by a vector of color names which will be interpolated to create a palette.}
 
-\item{colValLimits}{Range of values for teh color mapping.}
+\item{colValLimits}{Range of values for the color mapping.}
 
 \item{naColor}{Color used for NA values.}
 

@@ -77,7 +77,7 @@ Before implementing a kriging predictor, we need to fix a variogram/covariance m
 # Convert the `meuse` dataframe (which containins our observations) into a gstlearn Db object called obsDb
 obsDb=dfToDb(meuse,coordnames = c("x","y"))
 
-# Create an experimental omnidirectional variogram (with 20 lags seperated by a distance of 100 m) for the log concentration of Cadmium using the Db obsDb (-> `vario_exp`)
+# Create an experimental omnidirectional variogram (with 20 lags separated by a distance of 100 m) for the log concentration of Cadmium using the Db obsDb (-> `vario_exp`)
 varioexp_iso = vario_exp(obsDb,vname="log_cadmium",nlag=20, dlag=100.)
 
 # Fit a model with an exponential covariance on the experimental variogram (-> `model_fit`)
@@ -430,7 +430,7 @@ ggarrange(p1,p2,nrow=1)
 
 
 ```{r}
-## Cross-validation for Ordinary kriging with moving neigborhood (Use the prefix "Xvalid_OK_mov")
+## Cross-validation for Ordinary kriging with moving neighborhood (Use the prefix "Xvalid_OK_mov")
 minixvalid(obsDb, vname = "log_cadmium", model=model_aniso, type = "ordinary", prefix="Xvalid_OK_mov", 
            mean = mean_log_cadmium, neighborhood = "unique", std = TRUE)
 ```
@@ -449,7 +449,7 @@ dbplot_point(obsDb,color = xvalid_name, cmap="viridis")
 ```
 
 ```{r}
-## Scatter plot Ordinary Kriging unique neigborhood VS moving neigborhood: Predictions
+## Scatter plot Ordinary Kriging unique neighborhood VS moving neighborhood: Predictions
 p1=plot_scatter(targetDb,vnamex="OK.log_cadmium.estim",vnamey="OK_mov.log_cadmium.estim",
                 title="Estimation unique vs. moving", xlab="unique neigh", ylab="moving neigh")
                      
@@ -564,7 +564,7 @@ p2=dbplot_grid(targetDb,color = 'COK.log_zinc.stdev',
 ggarrange(p1,p2,nrow = 1)
 ```
 
-## Comparaison OK / CoKriging
+## Comparison OK / CoKriging
 
 13. Compare ordinary kriging and cokriging results using scatter plots
 ```{r}

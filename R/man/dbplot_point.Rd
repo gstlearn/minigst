@@ -34,7 +34,7 @@ dbplot_point(
 
 \item{cmap}{Color map used to plot the points by color. Can be specified by a name (cf. \code{\link{printAllPalettes}} to display available choices), or by a vector of color names which will be interpolated to create a palette.}
 
-\item{colValLimits}{Range of values for teh color mapping.}
+\item{colValLimits}{Range of values for the color mapping.}
 
 \item{naColor}{Color used for NA values.}
 
@@ -48,7 +48,7 @@ dbplot_point(
 
 \item{hideLegend}{Whether to hide the legend.}
 
-\item{legendTitle}{Title(s) of the legend: either a single string if just the color or the size if plotted, or a vector containing respectively the title of the color legende and the title of the size legend. Setting the legend title to `NA` means that the name of the variable is used as a title.}
+\item{legendTitle}{Title(s) of the legend: either a single string if just the color or the size if plotted, or a vector containing respectively the title of the color legend and the title of the size legend. Setting the legend title to `NA` means that the name of the variable is used as a title.}
 
 \item{asp}{Aspect ratio of the plot: 0 = No scaling of the axes, 1 = Axes have the same scale.}
 

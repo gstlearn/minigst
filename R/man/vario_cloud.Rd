@@ -18,7 +18,7 @@ vario_cloud(db, vname, dir = NULL, gridRes = 100, tolang = 22.5)
 \item{tolang}{Tolerance on the angles. See \emph{Details}.}
 }
 \value{
-A DbGrid containing the computed variogram cloud, where the number of pairs are stored in each grid cell are stored in a variable calle `Cloud.vname`.
+A DbGrid containing the computed variogram cloud, where the number of pairs are stored in each grid cell are stored in a variable called `Cloud.vname`.
 }
 \description{
 Function to compute a variogram cloud for a variable in a `gstlearn` Db object.

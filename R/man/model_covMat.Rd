@@ -28,7 +28,7 @@ library(minigst)
 ## Create model
 model=createModel(struct=c("EXPONENTIAL", "NUGGET"), range = 0.3, sill = c(1,0.1), ndim=2)
 
-## Evaluate the covriance matrix on some random points in the unit square
+## Evaluate the covariance matrix on some random points in the unit square
 xx=matrix(runif(20),nrow=10,ncol=2)
 yy=matrix(runif(10),nrow=5,ncol=2)
 covMat=model_covMat(x=xx,y=yy,model=model,mode="COV")

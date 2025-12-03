@@ -127,7 +127,7 @@ dat
 
 ## The Db class
 
-*Db* objects (as all objects that inherits from *AStringable*) have a method `display` allowing to print a summary of the content of the data base. The same occurs when typing the name of the variable at the end of a chunck (see above).
+*Db* objects (as all objects that inherits from *AStringable*) have a method `display` allowing to print a summary of the content of the data base. The same occurs when typing the name of the variable at the end of a chunk (see above).
 
 ```{r}
 dat$display()
@@ -170,7 +170,7 @@ Also note the presence of samples with `NA` corresponding to those where the tar
 dat["January_temp"]
 ```
 
-But it can be more restrictive as in the following paragraph, where we only consider the samples 10 to 15, and only consider the variables *rank*, *Latitude*, *Elevation*. In R indices in array start from 1 to N (1-based). Indices slice '10:15' in R means indices {10,11,12,13,14,15} (the last index is considered which is different from Python) which means ranks {10,11,12,13,14,15}.Be carefull that for all other functions of the *gstlearn* package, indices must be provided 0-based.
+But it can be more restrictive as in the following paragraph, where we only consider the samples 10 to 15, and only consider the variables *rank*, *Latitude*, *Elevation*. In R indices in array start from 1 to N (1-based). Indices slice '10:15' in R means indices {10,11,12,13,14,15} (the last index is considered which is different from Python) which means ranks {10,11,12,13,14,15}. Be careful that for all other functions of the *gstlearn* package, indices must be provided 0-based.
 
 ```{r}
 dat[10:15, c("rank", "Latitude", "Elevation")]

@@ -399,10 +399,10 @@ plot_vario(vario.4dir,pairDisplay = "size")
 vario.2dir = vario_exp(data,vname="log_cadmium",dir=c(45,135),nlag=20, dlag=100.)
 
 plot_vario(vario.2dir)
-# plot.init() + plot.varmod(vario.2dir) + plot.decoration(title="Directionnal variogram for cadmium (45, 135)")
+# plot.init() + plot.varmod(vario.2dir) + plot.decoration(title="Directional variogram for cadmium (45, 135)")
 ```
 
-## Model adjustement
+## Model adjustment
 
 It is also possible to guide the model fitting by proposing a list of basic covariance structures from which the model is to be built. The list of available basic covariance structures is obtained by running the following command:
 

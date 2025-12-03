@@ -252,7 +252,7 @@ dfToDb<-function(df,coordnames,isGrid=FALSE){
         for (vn in var_name) {dbG[vn] = suppressWarnings(as.numeric(unlist(df[,vn])))}
         
       }else{
-        warnings("The coordinates in df and in the Db are not aranged in the same order. Consequently, the variables from df are migrated to the closest grid point in the Db.")
+        warnings("The coordinates in df and in the Db are not arranged in the same order. Consequently, the variables from df are migrated to the closest grid point in the Db.")
         
         ## Create Db
         data = Db() # creating the data base
@@ -615,7 +615,7 @@ summaryStats<-function(db,vname,stat=NULL,onlyCommon=FALSE){
 migrateVar<-function(dbin,dbout,vname=NULL,prefix=NULL,
                      addIdOrigin=TRUE,addSelNotNA=FALSE){
   
-  ## While wainting for issues with migrate function to be solved
+  ## While waiting for issues with migrate function to be solved
   dbin_t=Db(dbin)
   dbout_t=Db(dbout)
     
