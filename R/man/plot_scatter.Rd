@@ -38,7 +38,7 @@ plot_scatter(
 
 \item{title}{Title of plot.}
 
-\item{asPoints}{Whether to plot points using indivudal symbols or counting bins}
+\item{asPoints}{Whether to plot points using individual symbols or counting bins}
 
 \item{nbins}{Number of discretization bins}
 

@@ -58,7 +58,7 @@ minixvalid(
 \value{
 The function `minikriging` directly adds the kriging predictions (and if applicable, standard-deviations) to the Db in `dbout`. The names of these newly created variables will be of the form `prefix.vname.estim` for the predictions and  `prefix.vname.stdev` for the standard deviations.
 
-The function `minixvalid` directly adds the kriging cross-validation errors (and if applicable, standard-deviations) to the Db in `dbin`. The names of these newly created variables will be of the form `prefix.vname.esterr` for the cross-vaidation errors and  `prefix.vname.stderr` for the standardardized errors
+The function `minixvalid` directly adds the kriging cross-validation errors (and if applicable, standard-deviations) to the Db in `dbin`. The names of these newly created variables will be of the form `prefix.vname.esterr` for the cross-validation errors and  `prefix.vname.stderr` for the standardardized errors
 }
 \description{
 Functions to compute the kriging predictions (`minikriging`) or cross-validations (`minixvalid`).

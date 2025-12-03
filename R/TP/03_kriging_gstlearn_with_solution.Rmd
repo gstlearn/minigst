@@ -508,7 +508,7 @@ Computing co-kriging predictions is done using once again the `minikriging` func
 
 If such arguments are supplied to the `minikriging` function, then it computes the cokriging predictions for each variable in `vname` using the model `model`.
 
-12. Perform an (ordinary) co-kriging prediction of the metal log-concentrations on thr grid `targetDb` using the model `model_aniso4var`. Store the results using the prefix "COK".
+12. Perform an (ordinary) co-kriging prediction of the metal log-concentrations on the grid `targetDb` using the model `model_aniso4var`. Store the results using the prefix "COK".
 
 ```{r Cokriging, fig.height=6}
 minikriging(obsDb, targetDb, vname = variable_names, model = model_aniso4var, 

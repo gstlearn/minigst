@@ -674,7 +674,7 @@ plot_hist<-function (db,vname,color = "blue",nbin=30, title=NULL,xlab=NULL){
 #' @param xlab Label of x-axis
 #' @param ylab Label of y-axis
 #' @param title Title of plot.
-#' @param asPoints Whether to plot points using indivudal symbols or counting bins
+#' @param asPoints Whether to plot points using individual symbols or counting bins
 #' @param nbins Number of discretization bins 
 #' @param cmap Color map used to plot the points by color. Can be specified by a name (cf. \code{\link{printAllPalettes}} to display available choices), or by a vector of color names which will be interpolated to create a palette.
 #' @param regrLine Whether to add a regression line to the plot
