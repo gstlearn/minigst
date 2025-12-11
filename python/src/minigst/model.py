@@ -15,23 +15,32 @@ def get_all_struct():
         all available basic structures/covariance functions.
     """
     # Available structures
-    all_struct = pd.DataFrame(list(zip(gl.ECov.getAllKeys(),gl.ECov.getAllDescr())),columns =["Name","Description"])
-    all_struct=all_struct.iloc[2:,:]
-    
+    all_struct = pd.DataFrame(
+        list(zip(gl.ECov.getAllKeys(), gl.ECov.getAllDescr())),
+        columns=["Name", "Description"],
+    )
+    all_struct = all_struct.iloc[2:, :]
+
     ## Extract maximum allowed dimension
     context = gl.CovContext()
-    maxDim=[]
+    maxDim = []
     for i in range(all_struct.shape[0]):
-        cova=gl.CovAniso.createIsotropic(context,type=gl.ECov.fromKey(all_struct["Name"].iloc[i]),range=1)
-        maxDim=maxDim+[cova.getCorFunc().getMaxNDim()]
-    maxDim=np.array(maxDim,dtype=np.float64)
-    maxDim[maxDim==(maxDim.max())]=np.inf
-    maxDim.min(),maxDim.max()
-    
+        cova = gl.CovAniso.createIsotropic(
+            context, type=gl.ECov.fromKey(all_struct["Name"].iloc[i]), range=1
+        )
+        maxDim = maxDim + [cova.getCorFunc().getMaxNDim()]
+    maxDim = np.array(maxDim, dtype=np.float64)
+    maxDim[maxDim == (maxDim.max())] = np.inf
+    maxDim.min(), maxDim.max()
+
     ## Add to Dataframe
-    all_struct_bis = pd.DataFrame(list(zip(all_struct.iloc[:,0],all_struct.iloc[:,0],maxDim)),columns =["Name","Description","Maximum Dimension"])
-    
+    all_struct_bis = pd.DataFrame(
+        list(zip(all_struct.iloc[:, 0], all_struct.iloc[:, 0], maxDim)),
+        columns=["Name", "Description", "Maximum Dimension"],
+    )
+
     return all_struct_bis
+
 
 def print_all_struct():
     """
@@ -45,7 +54,7 @@ def print_all_struct():
     return None
 
 
-def _check_struct_names(struct_names,ndim=None):
+def _check_struct_names(struct_names, ndim=None):
     """
     Check supplied names of covariances and return corresponding ECov objects.
 
@@ -68,7 +77,7 @@ def _check_struct_names(struct_names,ndim=None):
 
     # Lowercase list of valid names
     valid_names = [name.lower() for name in all_struct["Name"]]
-    
+
     ## Check if name exists
     for s in struct_names:
         if s.lower() not in valid_names:
@@ -76,8 +85,8 @@ def _check_struct_names(struct_names,ndim=None):
                 f"Structure name '{s}' is not part of the available names. "
                 f"Please choose from: {', '.join(all_struct['Name'])}"
             )
-        elif isinstance(ndim,int):
-            maxDim=all_struct.iloc[valid_names.index(s.lower()),2]
+        elif isinstance(ndim, int):
+            maxDim = all_struct.iloc[valid_names.index(s.lower()), 2]
             if ndim > maxDim:
                 raise ValueError(
                     f"Structure '{s}' can only be used when the space dimension is lower or equal than '{maxDim}'. "
@@ -170,17 +179,17 @@ def create_model_iso(
         struct = [struct]
 
     # Validate parameters
-    struct_vals= _check_struct_names(struct,ndim)
+    struct_vals = _check_struct_names(struct, ndim)
 
     nstruct = len(struct_vals)
     range_vals = _check_cov_param(range, "range", nstruct)
     sill_vals = _check_cov_param(sill, "sill", nstruct)
     param_vals = _check_cov_param(param, "param", nstruct)
-    
+
     nvar = 1
     context = gl.CovContext(nvar, ndim)
     model = gl.Model.create(context)
-    
+
     # Add additional structures
     for i, _ in enumerate(struct_vals):
         model.addCovFromParam(
@@ -190,11 +199,11 @@ def create_model_iso(
             param=param_vals[i],
             flagRange=not is_scale,
         )
-    
+
     if isinstance(mean, (int, float)):
         # Set model mean
         model.setMeans(mean)
-    
+
     return model
 
 
@@ -217,10 +226,10 @@ def create_model(struct, ndim=2, nvar=1):
     """
     if isinstance(struct, str):
         struct = [struct]
-    
+
     # Validate parameters
-    struct_vals= _check_struct_names(struct,ndim)
-    
+    struct_vals = _check_struct_names(struct, ndim)
+
     context = gl.CovContext(nvar, ndim)
     model = gl.Model.create(context)
 
@@ -241,7 +250,7 @@ def add_drifts_to_model(mdl, pol_drift=None, n_ext_drift=0, type="ordinary"):
     mdl.setDriftIRF(pol_drift, n_ext_drift)
 
 
-def model_fit(vario, struct, aniso_model=True,max_iter=1000, verbose=True):
+def model_fit(vario, struct, aniso_model=True, max_iter=1000, verbose=True):
     """
     Fit a variogram model to experimental variogram.
 
@@ -263,26 +272,26 @@ def model_fit(vario, struct, aniso_model=True,max_iter=1000, verbose=True):
 
     ndim = vario.getNDim()
     nvar = vario.getNVar()
-    
+
     if isinstance(struct, str):
         struct = [struct]
-    
+
     # Create initial model
     model = create_model(struct, ndim=ndim, nvar=nvar)
-    
+
     # # Fit model with fitNew
     # option = gl.ModelOptimParam.create(aniso_model)
     # err = model.fitNew(vario=vario, mop=option)
-        
+
     # Fit model with Autofit
-    option=gl.Option_AutoFit()
+    option = gl.Option_AutoFit()
     option.setMaxiter(max_iter)
-    err=gl.model_auto_fit(vario,model,verbose=verbose,mauto_arg=option)
-    
+    err = gl.model_auto_fit(vario, model, verbose=verbose, mauto_arg=option)
+
     # Prune model if requested
     # if prune_model:
     #    _prune_model(model)
-    
+
     return model
 
 
@@ -457,8 +466,6 @@ def model_mle(
     3. If `prune_model=True`, remove components with very small variance.
     4. Repeat until no structure can be removed.
     """
-
-
 
     ndim = db.getNDim()
     model = create_model(struct, ndim=ndim)
