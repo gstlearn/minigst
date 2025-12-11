@@ -16,8 +16,22 @@ def get_all_struct():
     """
     # Available structures
     all_struct = pd.DataFrame(list(zip(gl.ECov.getAllKeys(),gl.ECov.getAllDescr())),columns =["Name","Description"])
+    all_struct=all_struct.iloc[2:,:]
     
-    return all_struct
+    ## Extract maximum allowed dimension
+    context = gl.CovContext()
+    maxDim=[]
+    for i in range(all_struct.shape[0]):
+	    cova=gl.CovAniso.createIsotropic(context,type=gl.ECov.fromKey(all_struct["Name"].iloc[i]),range=1)
+	    maxDim=maxDim+[cova.getCorFunc().getMaxNDim()]
+    maxDim=np.array(maxDim,dtype=np.float64)
+    maxDim[maxDim==(maxDim.max())]=np.inf
+    maxDim.min(),maxDim.max()
+    
+    ## Add to Dataframe
+    all_struct_bis = pd.DataFrame(list(zip(all_struct.iloc[:,0],all_struct.iloc[:,0],maxDim)),columns =["Name","Description","Maximum Dimension"])
+    
+    return all_struct_bis
 
 
 def print_all_struct():
@@ -33,7 +47,7 @@ def print_all_struct():
 
 
 
-def _check_struct_names(struct_names):
+def _check_struct_names(struct_names,ndim=None):
     """
     Check supplied names of covariances and return corresponding ECov objects.
 
@@ -56,13 +70,19 @@ def _check_struct_names(struct_names):
 
     # Lowercase list of valid names
     valid_names = [name.lower() for name in all_struct["Name"]]
-
+    
+    ## Check if name exists
     for s in struct_names:
         if s.lower() not in valid_names:
             raise ValueError(
                 f"Structure name '{s}' is not part of the available names. "
                 f"Please choose from: {', '.join(all_struct['Name'])}"
             )
+        elif isinstance(ndim,int):
+            maxDim=all_struct.iloc[valid_names.index(s.lower()),2]
+            if ndim > maxDim:
+                raise ValueError(
+                    f"Structure '{s}' can only be used when the space dimension is lower or equal than '{maxDim}'. ")
 
     return gl.ECov.fromKeys(struct_names)
 
@@ -149,7 +169,7 @@ def create_model_iso(struct, ndim=2, range=1,sill=1,param=1,mean=None,is_scale=F
         struct = [struct]
 
     # Validate parameters
-    struct_vals= _check_struct_names(struct)
+    struct_vals= _check_struct_names(struct,ndim)
     nstruct = len(struct_vals)
     range_vals = _check_cov_param(range, "range", nstruct)
     sill_vals = _check_cov_param(sill, "sill", nstruct)
@@ -196,7 +216,7 @@ def create_model(struct, ndim=2, nvar=1):
         struct = [struct]
     
     # Validate parameters
-    struct_vals= _check_struct_names(struct)
+    struct_vals= _check_struct_names(struct,ndim)
     
     context = gl.CovContext(nvar, ndim)
     model = gl.Model.create(context)
@@ -218,7 +238,7 @@ def add_drifts_to_model(mdl, pol_drift=None, n_ext_drift=0, type="ordinary"):
     mdl.setDriftIRF(pol_drift, n_ext_drift)
 
 
-def model_fit(vario, struct, aniso_model=True):
+def model_fit(vario, struct, aniso_model=True,max_iter=1000, verbose=True):
     """
     Fit a variogram model to experimental variogram.
 
@@ -226,6 +246,8 @@ def model_fit(vario, struct, aniso_model=True):
         vario: gstlearn Vario object (experimental variogram)
         struct: Structure type(s) (string or list of strings)
         aniso_model: Boolean, if True allows anisotropy
+        max_iter: Int, Maximum nimber of iterations
+        verbose: Boolean, Whether to print messages about the optimization
 
     Returns:
         gstlearn Model object
@@ -235,20 +257,23 @@ def model_fit(vario, struct, aniso_model=True):
         >>> vario = mg.vario_exp(db, vname='elevation', nlag=20, dlag=10.0)
         >>> model = mg.model_fit(vario, struct=['NUGGET', 'SPHERICAL'])
     """
-    if isinstance(struct, str):
-        struct = [struct]
-    # Validate parameters
-    struct_vals= _check_struct_names(struct)
-    
     ndim = vario.getNDim()
     nvar = vario.getNVar()
+    
+    if isinstance(struct, str):
+        struct = [struct]
+    
     # Create initial model
     model = create_model(struct, ndim=ndim, nvar=nvar)
 
-    # Fit model
-
-    option = gl.ModelOptimParam.create(aniso_model)
-    err = model.fitNew(vario=vario, mop=option)
+    # # Fit model with fitNew
+    # option = gl.ModelOptimParam.create(aniso_model)
+    # err = model.fitNew(vario=vario, mop=option)
+    
+    # Fit model with Autofit
+    option=gl.Option_AutoFit()
+    option.setMaxiter(max_iter)
+    err=gl.model_auto_fit(vario,model,verbose=verbose,mauto_arg=option)
 
     # Prune model if requested
     # if prune_model:
@@ -429,8 +454,7 @@ def model_mle(
     4. Repeat until no structure can be removed.
     """
 
-    ## Check structure names
-    types = _check_struct_names(struct)
+
 
     ndim = db.getNDim()
     model = create_model(struct, ndim=ndim)
@@ -500,9 +524,6 @@ def model_compute_log_likelihood(
          Value of the log-likelihood.
 
     """
-
-    # Check structure names using gstlearn
-    types = _check_struct_names(struct)
 
     ndim = db.getNDim()
 
