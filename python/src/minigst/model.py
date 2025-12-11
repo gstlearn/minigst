@@ -80,7 +80,8 @@ def _check_struct_names(struct_names,ndim=None):
             maxDim=all_struct.iloc[valid_names.index(s.lower()),2]
             if ndim > maxDim:
                 raise ValueError(
-                    f"Structure '{s}' can only be used when the space dimension is lower or equal than '{maxDim}'. ")
+                    f"Structure '{s}' can only be used when the space dimension is lower or equal than '{maxDim}'. "
+                )
 
     return gl.ECov.fromKeys(struct_names)
 
