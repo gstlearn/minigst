@@ -175,11 +175,11 @@ def create_model_iso(
     range_vals = _check_cov_param(range, "range", nstruct)
     sill_vals = _check_cov_param(sill, "sill", nstruct)
     param_vals = _check_cov_param(param, "param", nstruct)
-
+    
     nvar = 1
     context = gl.CovContext(nvar, ndim)
     model = gl.Model.create(context)
-
+    
     # Add additional structures
     for i, _ in enumerate(struct_vals):
         model.addCovFromParam(
@@ -189,11 +189,11 @@ def create_model_iso(
             param=param_vals[i],
             flagRange=not is_scale,
         )
-
+    
     if isinstance(mean, (int, float)):
         # Set model mean
         model.setMeans(mean)
-
+    
     return model
 
 
@@ -216,10 +216,10 @@ def create_model(struct, ndim=2, nvar=1):
     """
     if isinstance(struct, str):
         struct = [struct]
-
+    
     # Validate parameters
     struct_vals= _check_struct_names(struct,ndim)
-
+    
     context = gl.CovContext(nvar, ndim)
     model = gl.Model.create(context)
 
@@ -268,7 +268,7 @@ def model_fit(vario, struct, aniso_model=True,max_iter=1000, verbose=True):
     
     # Create initial model
     model = create_model(struct, ndim=ndim, nvar=nvar)
-
+    
     # # Fit model with fitNew
     # option = gl.ModelOptimParam.create(aniso_model)
     # err = model.fitNew(vario=vario, mop=option)
@@ -277,11 +277,11 @@ def model_fit(vario, struct, aniso_model=True,max_iter=1000, verbose=True):
     option=gl.Option_AutoFit()
     option.setMaxiter(max_iter)
     err=gl.model_auto_fit(vario,model,verbose=verbose,mauto_arg=option)
-
+    
     # Prune model if requested
     # if prune_model:
     #    _prune_model(model)
-
+    
     return model
 
 
