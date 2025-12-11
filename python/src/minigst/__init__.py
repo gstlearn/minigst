@@ -56,6 +56,7 @@ from .gaussim import (
 from .loadData import data
 
 __all__ = [
+    "__version__",
     # Database functions
     "data",
     "df_to_db",
@@ -63,14 +64,27 @@ __all__ = [
     "create_dbgrid",
     "add_var_to_db",
     "del_var_from_db",
+    "add_sel",
+    "clear_sel",
     "summary_stats",
+    "set_var",
     # Plotting functions
+    "dbplot_point",
     "dbplot_grid",
-    "add_points",
     "add_lines",
+    # Model functions
+    "get_all_struct",
+    "print_all_struct",
+    "create_model_iso",
+    "model_fit",
+    "model_mle",
+    "eval_cov_matrix",
+    "eval_drift_matrix",
+    "model_compute_log_likelihood",
+    "set_sill",
+    "set_range",
     # Variogram functions
     "vario_exp",
-    "model_fit",
     "create_model",
     "vario_map",
     # Kriging functions
@@ -78,6 +92,7 @@ __all__ = [
     "minixvalid",
     "kriging_mean",
     "set_mean",
+    "regression",
     # Simulation functions
     "simulate_gauss_rf",
 ]
