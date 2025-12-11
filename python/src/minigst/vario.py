@@ -3,6 +3,8 @@
 import numpy as np
 import gstlearn as gl
 
+from .plot import dbplot_grid
+
 
 def _rep_arg(n, arg, argname):
     """Adapt the size of model parameters."""
