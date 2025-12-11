@@ -258,19 +258,25 @@ def add_var_to_db(db, var, vname):
             if isinstance(vname, str):
                 var = encode_if_categorical(var)
                 db[vname] = var
-            elif isinstance(vname, (list, tuple)) and len(vname) == 1 and isinstance(vname[0], str):
+            elif (
+                isinstance(vname, (list, tuple))
+                and len(vname) == 1
+                and isinstance(vname[0], str)
+            ):
                 var = encode_if_categorical(var)
                 db[vname[0]] = var
             else:
-                raise ValueError("When adding a single variable: vname must be a string or a list/tuple with a single string.")
+                raise ValueError(
+                    "When adding a single variable: vname must be a string or a list/tuple with a single string."
+                )
         elif var.ndim == 2:
             # Multiple variables
             if isinstance(vname, (list, tuple)) and len(vname) == var.shape[1]:
                 for i, name in enumerate(vname):
                     if not isinstance(name, str):
                         raise ValueError(
-                                "vname must be a list/tuple of strings with length matching the number of columns."
-                            )
+                            "vname must be a list/tuple of strings with length matching the number of columns."
+                        )
                     val = var[:, i]
                     val = encode_if_categorical(val)
                     db[name] = val
