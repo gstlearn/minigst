@@ -33,7 +33,6 @@ def get_all_struct():
     
     return all_struct_bis
 
-
 def print_all_struct():
     """
     Prints the dataframe created by get_all_struct().
@@ -44,7 +43,6 @@ def print_all_struct():
     """
     print(get_all_struct())
     return None
-
 
 
 def _check_struct_names(struct_names,ndim=None):
@@ -85,6 +83,7 @@ def _check_struct_names(struct_names,ndim=None):
                     f"Structure '{s}' can only be used when the space dimension is lower or equal than '{maxDim}'. ")
 
     return gl.ECov.fromKeys(struct_names)
+
 
 def _check_cov_param(param, name_param, n):
     """
@@ -138,24 +137,25 @@ def _check_cov_param(param, name_param, n):
     return param_list
 
 
-
-def create_model_iso(struct, ndim=2, range=1,sill=1,param=1,mean=None,is_scale=False):
+def create_model_iso(
+    struct, ndim=2, range=1, sill=1, param=1, mean=None, is_scale=False
+):
     """
     Create an isotropic covariance model (for a single variable).
 
     Args:
         struct: Structure type(s) (string or list of strings)
         ndim: Space dimension
-		range : float or list
-			Range values (1 or len(struct)).
-		sill : float or list
-			Sill (variance) values (1 or len(struct)).
-		param : float or list
-			Extra parameter for each structure (1 or len(struct)).
-		mean : float
-			Model mean. If None (default), no mean is supplied.
-		is_scale : bool
-			If True, range is scaling factor instead of correlation length.
+                range : float or list
+                        Range values (1 or len(struct)).
+                sill : float or list
+                        Sill (variance) values (1 or len(struct)).
+                param : float or list
+                        Extra parameter for each structure (1 or len(struct)).
+                mean : float
+                        Model mean. If None (default), no mean is supplied.
+                is_scale : bool
+                        If True, range is scaling factor instead of correlation length.
 
     Returns:
         gstlearn Model object
@@ -170,29 +170,31 @@ def create_model_iso(struct, ndim=2, range=1,sill=1,param=1,mean=None,is_scale=F
 
     # Validate parameters
     struct_vals= _check_struct_names(struct,ndim)
+
     nstruct = len(struct_vals)
     range_vals = _check_cov_param(range, "range", nstruct)
     sill_vals = _check_cov_param(sill, "sill", nstruct)
     param_vals = _check_cov_param(param, "param", nstruct)
-    
-    nvar=1
+
+    nvar = 1
     context = gl.CovContext(nvar, ndim)
     model = gl.Model.create(context)
 
     # Add additional structures
-    for i,_ in enumerate(struct_vals):
-        model.addCovFromParam(struct_vals[i], 
+    for i, _ in enumerate(struct_vals):
+        model.addCovFromParam(
+            struct_vals[i],
             sill=sill_vals[i],
             range=range_vals[i],
             param=param_vals[i],
-            flagRange=not is_scale)
+            flagRange=not is_scale,
+        )
 
-    if isinstance(mean,(int,float)):
+    if isinstance(mean, (int, float)):
         # Set model mean
         model.setMeans(mean)
-     
-    return model
 
+    return model
 
 
 def create_model(struct, ndim=2, nvar=1):
@@ -214,10 +216,10 @@ def create_model(struct, ndim=2, nvar=1):
     """
     if isinstance(struct, str):
         struct = [struct]
-    
+
     # Validate parameters
     struct_vals= _check_struct_names(struct,ndim)
-    
+
     context = gl.CovContext(nvar, ndim)
     model = gl.Model.create(context)
 
@@ -257,6 +259,7 @@ def model_fit(vario, struct, aniso_model=True,max_iter=1000, verbose=True):
         >>> vario = mg.vario_exp(db, vname='elevation', nlag=20, dlag=10.0)
         >>> model = mg.model_fit(vario, struct=['NUGGET', 'SPHERICAL'])
     """
+
     ndim = vario.getNDim()
     nvar = vario.getNVar()
     
