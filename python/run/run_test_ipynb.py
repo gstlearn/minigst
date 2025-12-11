@@ -1,7 +1,16 @@
-import subprocess
 import sys
 import os
 import re
+import tempfile
+
+# Inspired from https://stackoverflow.com/questions/65502005/convert-a-jupyter-notebook-to-html-output-in-native-python
+# See manual here : https://buildmedia.readthedocs.org/media/pdf/nbconvert/latest/nbconvert.pdf
+import nbformat
+from nbconvert.preprocessors import ExecutePreprocessor
+from nbconvert import ASCIIDocExporter
+from nbconvert import HTMLExporter
+from nbconvert import PDFExporter
+
 
 # This script:
 # - executes a jupyter notebook test script (argv[1])
@@ -15,15 +24,6 @@ out_type = "asciidoc"
 if len(sys.argv) > 3:
     out_type = sys.argv[3]
 test_output = os.path.join(out_dir, test_name + "." + out_type)
-
-# Inspired from https://stackoverflow.com/questions/65502005/convert-a-jupyter-notebook-to-html-output-in-native-python
-# See manual here : https://buildmedia.readthedocs.org/media/pdf/nbconvert/latest/nbconvert.pdf
-import nbformat
-import tempfile
-from nbconvert.preprocessors import ExecutePreprocessor
-from nbconvert import ASCIIDocExporter
-from nbconvert import HTMLExporter
-from nbconvert import PDFExporter
 
 # Read [and hack source notebook in a temporary notebook]
 f = open(test_script, "r", encoding="utf8")

@@ -201,7 +201,7 @@ def vario_map(db, vname, grid_res=20):
         # Display side-by-side
         from matplotlib import pyplot as plt
 
-        fig, axes = plt.subplots(1, 2, figsize=(10, 4))
+        _, axes = plt.subplots(1, 2, figsize=(10, 4))
         p1(axes[0])
         p2(axes[1])
         plt.tight_layout()

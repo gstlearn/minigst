@@ -1,6 +1,5 @@
 """Gaussian simulation functions for minigst package."""
 
-import numpy as np
 import gstlearn as gl
 from .kriging import kriging_mean, set_mean
 
