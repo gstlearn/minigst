@@ -22,8 +22,8 @@ def get_all_struct():
     context = gl.CovContext()
     maxDim=[]
     for i in range(all_struct.shape[0]):
-	    cova=gl.CovAniso.createIsotropic(context,type=gl.ECov.fromKey(all_struct["Name"].iloc[i]),range=1)
-	    maxDim=maxDim+[cova.getCorFunc().getMaxNDim()]
+        cova=gl.CovAniso.createIsotropic(context,type=gl.ECov.fromKey(all_struct["Name"].iloc[i]),range=1)
+        maxDim=maxDim+[cova.getCorFunc().getMaxNDim()]
     maxDim=np.array(maxDim,dtype=np.float64)
     maxDim[maxDim==(maxDim.max())]=np.inf
     maxDim.min(),maxDim.max()
@@ -272,7 +272,7 @@ def model_fit(vario, struct, aniso_model=True,max_iter=1000, verbose=True):
     # # Fit model with fitNew
     # option = gl.ModelOptimParam.create(aniso_model)
     # err = model.fitNew(vario=vario, mop=option)
-    
+        
     # Fit model with Autofit
     option=gl.Option_AutoFit()
     option.setMaxiter(max_iter)
