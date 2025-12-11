@@ -26,6 +26,9 @@ from .plot import (
 
 from .model import (
     create_model,
+    get_all_struct,
+    print_all_struct,
+    create_model_iso,
     model_fit,
     model_mle,
     eval_cov_matrix,

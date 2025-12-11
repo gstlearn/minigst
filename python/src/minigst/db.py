@@ -256,21 +256,27 @@ def add_var_to_db(db, var, vname):
         if var.ndim == 1:
             # Single variable
             if isinstance(vname, str):
-                val = df[vn].values
-                var = encode_if_categorical(val)
+                var = encode_if_categorical(var)
                 db[vname] = var
+            elif isinstance(vname, (list, tuple)) and len(vname) == 1 and isinstance(vname[0], str):
+                var = encode_if_categorical(var)
+                db[vname[0]] = var
             else:
-                raise ValueError("vname must be a string for a 1D array.")
+                raise ValueError("When adding a single variable: vname must be a string or a list/tuple with a single string.")
         elif var.ndim == 2:
             # Multiple variables
             if isinstance(vname, (list, tuple)) and len(vname) == var.shape[1]:
                 for i, name in enumerate(vname):
+                    if not isinstance(name, str):
+                        raise ValueError(
+                                "vname must be a list/tuple of strings with length matching the number of columns."
+                            )
                     val = var[:, i]
                     val = encode_if_categorical(val)
                     db[name] = val
             else:
                 raise ValueError(
-                    "vname must be a list with length matching the number of columns."
+                    "vname must be a list/tuple with length matching the number of columns."
                 )
         else:
             raise ValueError("var must be 1D or 2D array.")

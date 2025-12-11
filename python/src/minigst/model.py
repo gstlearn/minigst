@@ -1,6 +1,178 @@
 import gstlearn as gl
 import numpy as np
+import pandas as pd
 from .db import set_var
+
+
+def get_all_struct():
+    """
+    Basic structures for models.
+
+    Returns
+    -------
+    pandas.DataFrame
+        A dataframe with columns ["Name", "Description"] listing
+        all available basic structures/covariance functions.
+    """
+    # Available structures
+    all_struct = pd.DataFrame(list(zip(gl.ECov.getAllKeys(),gl.ECov.getAllDescr())),columns =["Name","Description"])
+    
+    return all_struct
+
+
+def print_all_struct():
+    """
+    Prints the dataframe created by get_all_struct().
+
+    Returns
+    -------
+    None
+    """
+    print(get_all_struct())
+    return None
+
+
+
+def _check_struct_names(struct_names):
+    """
+    Check supplied names of covariances and return corresponding ECov objects.
+
+    Parameters
+    ----------
+    struct_names : list of str
+        List of structure names to validate.
+
+    Returns
+    -------
+    object
+        ECov Object.
+
+    Raises
+    ------
+    ValueError
+        If any structure name is not in the available list.
+    """
+    all_struct = get_all_struct()  # DataFrame from earlier
+
+    # Lowercase list of valid names
+    valid_names = [name.lower() for name in all_struct["Name"]]
+
+    for s in struct_names:
+        if s.lower() not in valid_names:
+            raise ValueError(
+                f"Structure name '{s}' is not part of the available names. "
+                f"Please choose from: {', '.join(all_struct['Name'])}"
+            )
+
+    return gl.ECov.fromKeys(struct_names)
+
+def _check_cov_param(param, name_param, n):
+    """
+    Internal function to check covariance parameters.
+
+    Parameters
+    ----------
+    param : float or list/array
+        Parameter values.
+    name_param : str
+        Name of the parameter (for error messaging).
+    n : int
+        Number of structures.
+
+    Returns
+    -------
+    list of float
+        A list of parameters of length n.
+
+    Raises
+    ------
+    ValueError
+        If invalid type, NA, or wrong length.
+    """
+    # Check type
+    if not isinstance(param, (int, float, list, tuple)):
+        raise ValueError(
+            f"The argument {name_param} should be numeric, and NA are not allowed."
+        )
+
+    # Convert single numeric to list
+    if isinstance(param, (int, float)):
+        return [param] * n
+
+    # Convert sequences to list
+    param_list = list(param)
+
+    # Check for None/NA
+    if any(v is None for v in param_list):
+        raise ValueError(
+            f"The argument {name_param} should be numeric, and NA are not allowed."
+        )
+
+    # Length must match
+    if len(param_list) != n:
+        raise ValueError(
+            f"The length of {name_param} ({len(param_list)}) must be the same "
+            f"as the number of structures ({n})"
+        )
+
+    return param_list
+
+
+
+def create_model_iso(struct, ndim=2, range=1,sill=1,param=1,mean=None,is_scale=False):
+    """
+    Create an isotropic covariance model (for a single variable).
+
+    Args:
+        struct: Structure type(s) (string or list of strings)
+        ndim: Space dimension
+		range : float or list
+			Range values (1 or len(struct)).
+		sill : float or list
+			Sill (variance) values (1 or len(struct)).
+		param : float or list
+			Extra parameter for each structure (1 or len(struct)).
+		mean : float
+			Model mean. If None (default), no mean is supplied.
+		is_scale : bool
+			If True, range is scaling factor instead of correlation length.
+
+    Returns:
+        gstlearn Model object
+
+    Examples:
+        >>> import minigst as mg
+        >>> model = mg.create_model_iso('SPHERICAL', ndim=2,range=5)
+        >>> model = mg.create_model(['NUGGET', 'SPHERICAL'], ndim=2, range=[2,5], sill=1, nvar = 2)
+    """
+    if isinstance(struct, str):
+        struct = [struct]
+
+    # Validate parameters
+    struct_vals= _check_struct_names(struct)
+    nstruct = len(struct_vals)
+    range_vals = _check_cov_param(range, "range", nstruct)
+    sill_vals = _check_cov_param(sill, "sill", nstruct)
+    param_vals = _check_cov_param(param, "param", nstruct)
+    
+    nvar=1
+    context = gl.CovContext(nvar, ndim)
+    model = gl.Model.create(context)
+
+    # Add additional structures
+    for i,_ in enumerate(struct_vals):
+        model.addCovFromParam(struct_vals[i], 
+            sill=sill_vals[i],
+            range=range_vals[i],
+            param=param_vals[i],
+            flagRange=not is_scale)
+
+    if isinstance(mean,(int,float)):
+        # Set model mean
+        model.setMeans(mean)
+     
+    return model
+
 
 
 def create_model(struct, ndim=2, nvar=1):
@@ -22,7 +194,10 @@ def create_model(struct, ndim=2, nvar=1):
     """
     if isinstance(struct, str):
         struct = [struct]
-
+    
+    # Validate parameters
+    struct_vals= _check_struct_names(struct)
+    
     context = gl.CovContext(nvar, ndim)
     model = gl.Model.create(context)
 
@@ -62,7 +237,9 @@ def model_fit(vario, struct, aniso_model=True):
     """
     if isinstance(struct, str):
         struct = [struct]
-
+    # Validate parameters
+    struct_vals= _check_struct_names(struct)
+    
     ndim = vario.getNDim()
     nvar = vario.getNVar()
     # Create initial model
@@ -252,8 +429,8 @@ def model_mle(
     4. Repeat until no structure can be removed.
     """
 
-    # Check structure names using gstlearn
-    # types = gl.checkStructNames(struct)
+    ## Check structure names
+    types = _check_struct_names(struct)
 
     ndim = db.getNDim()
     model = create_model(struct, ndim=ndim)
@@ -325,7 +502,7 @@ def model_compute_log_likelihood(
     """
 
     # Check structure names using gstlearn
-    # types = gl.checkStructNames(struct)
+    types = _check_struct_names(struct)
 
     ndim = db.getNDim()
 
