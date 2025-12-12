@@ -119,7 +119,7 @@ db["*temp"] #<- Extract all variables which name ends with "temp"
 You can add new variables to a Db using the `addVarToDb` function.
 
 ```{r}
-## Compute cos of coorditates
+## Compute cos of coordinates
 cosCoord=cos(db[][c("Longitude","Latitude")])
 
 ## Add them to the Db `db` under the names "cosLongitude","cosLatitude"

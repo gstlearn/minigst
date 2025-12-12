@@ -258,7 +258,7 @@ def model_fit(vario, struct, aniso_model=True, max_iter=1000, verbose=True):
         vario: gstlearn Vario object (experimental variogram)
         struct: Structure type(s) (string or list of strings)
         aniso_model: Boolean, if True allows anisotropy
-        max_iter: Int, Maximum nimber of iterations
+        max_iter: Int, Maximum number of iterations
         verbose: Boolean, Whether to print messages about the optimization
 
     Returns:
