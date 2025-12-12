@@ -113,8 +113,6 @@ def df_to_dbgrid(df, coord_names):
             "Check the variable names in coord_names: one or several names are absent from the dataframe."
         )
 
-    tol_diff = 1e-6
-    ndim = len(coord_names)
     # Extract unique coordinates for each dimension
     nx = []
     dx = []
@@ -401,9 +399,7 @@ def add_sel(db, sel):
     db.deleteColumns(names="Selection")  # TODO: implement this in your Db class
 
     # Add new selection
-    err = db.addSelection(
-        tab=sel, name="Selection"
-    )  # TODO: implement this in your Db class
+    db.addSelection(tab=sel, name="Selection")  # TODO: implement this in your Db class
 
     return None
 
@@ -455,7 +451,7 @@ def set_var(db, vname, mode="Var"):
             raise ValueError(
                 "Check the variable names: one or several of the supplied names are absent from the Db."
             )
-        err = db.setLocators(vname, gl.ELoc.Z)
+        db.setLocators(vname, gl.ELoc.Z)
 
     if mode == "Drift":
         db.clearLocators(gl.ELoc.F)
@@ -463,6 +459,6 @@ def set_var(db, vname, mode="Var"):
             raise ValueError(
                 "Check the variable names: one or several of the supplied names are absent from the Db."
             )
-        err = db.setLocators(vname, gl.ELoc.F)
+        db.setLocators(vname, gl.ELoc.F)
 
     return None

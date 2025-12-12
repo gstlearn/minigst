@@ -228,7 +228,7 @@ def create_model(struct, ndim=2, nvar=1):
         struct = [struct]
 
     # Validate parameters
-    struct_vals = _check_struct_names(struct, ndim)
+    _ = _check_struct_names(struct, ndim)
 
     context = gl.CovContext(nvar, ndim)
     model = gl.Model.create(context)
@@ -242,7 +242,7 @@ def create_model(struct, ndim=2, nvar=1):
 
 
 def add_drifts_to_model(mdl, pol_drift=None, n_ext_drift=0, type="ordinary"):
-    err = mdl.delAllDrifts()
+    mdl.delAllDrifts()
 
     if pol_drift is None:
         pol_drift = -1 if type == "simple" else 0
@@ -286,7 +286,7 @@ def model_fit(vario, struct, aniso_model=True, max_iter=1000, verbose=True):
     # Fit model with Autofit
     option = gl.Option_AutoFit()
     option.setMaxiter(max_iter)
-    err = gl.model_auto_fit(vario, model, verbose=verbose, mauto_arg=option)
+    gl.model_auto_fit(vario, model, verbose=verbose, mauto_arg=option)
 
     # Prune model if requested
     # if prune_model:
@@ -535,8 +535,6 @@ def model_compute_log_likelihood(
          Value of the log-likelihood.
 
     """
-
-    ndim = db.getNDim()
 
     dbaux = prepare_likelihood(db, vname, model, pol_drift, ext_drift)
 

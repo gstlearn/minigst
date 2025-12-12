@@ -137,7 +137,7 @@ def minikriging(
             raise ValueError("Mean must be specified for simple kriging.")
         model_copy.setMean(mean)
 
-    err = gl.kriging(
+    gl.kriging(
         dbin,
         dbout,
         model_copy,
@@ -264,7 +264,7 @@ def minixvalid(
                 model_copy.addDrift(gl.DriftM())
 
         # Perform cross-validation
-        err = gl.xvalid(
+        gl.xvalid(
             dbin,
             model_copy,
             neigh,
@@ -281,7 +281,7 @@ def minixvalid(
         model_copy = model.clone()
         model_copy.setMean(mean)
 
-        err = gl.xvalid(
+        gl.xvalid(
             dbin,
             model_copy,
             neigh,
@@ -295,7 +295,7 @@ def minixvalid(
         model_copy = model.clone()
         model_copy.addDrift(gl.DriftM())
 
-        err = gl.xvalid(
+        gl.xvalid(
             dbin,
             model_copy,
             neigh,
@@ -353,7 +353,7 @@ def kriging_mean(db, vname, model):
     # Simple Kriging with mean 0
     mod0 = model.clone()
     mod0.setMean(0.0)
-    err = gl.kriging(
+    gl.kriging(
         db,
         tgt,
         mod0,
@@ -366,7 +366,7 @@ def kriging_mean(db, vname, model):
     # Simple Kriging with mean 1
     mod1 = model.clone()
     mod1.setMean(1.0)
-    err = gl.kriging(
+    gl.kriging(
         db,
         tgt,
         mod1,
@@ -379,7 +379,7 @@ def kriging_mean(db, vname, model):
     # Ordinary Kriging
     modOK = model.clone()
     modOK.addDrift(gl.DriftM())
-    err = gl.kriging(
+    gl.kriging(
         db,
         tgt,
         modOK,
