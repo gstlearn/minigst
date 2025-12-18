@@ -24,11 +24,11 @@ def data(name):
         file_path = (
             pkg_resources.files(datafiles) / "Scotland" / "Scotland_Temperatures.csv"
         )
-        scot = pd.read_csv(file_path, na_values="MISS")
+        scot = pd.read_csv(str(file_path), na_values="MISS")
         file_path = (
             pkg_resources.files(datafiles) / "Scotland" / "Scotland_Elevations.csv"
         )
-        scot_grid = pd.read_csv(file_path)
+        scot_grid = pd.read_csv(str(file_path))
         return scot, scot_grid
     if name == "ScotlandGrid":
         file_path = (
@@ -38,16 +38,16 @@ def data(name):
         return scot_grid
     if name == "Meuse":
         file_path = pkg_resources.files(datafiles) / "Meuse" / "meuse.csv"
-        meuse = pd.read_csv(file_path)
+        meuse = pd.read_csv(str(file_path))
         file_path = pkg_resources.files(datafiles) / "Meuse" / "meuse.grid.csv"
-        meuse_grid = pd.read_csv(file_path)
+        meuse_grid = pd.read_csv(str(file_path))
         return meuse, meuse_grid
     if name == "Jura":
         file_path = pkg_resources.files(datafiles) / "Jura" / "jura_val_loc.csv"
-        jura_val_loc = pd.read_csv(file_path)
+        jura_val_loc = pd.read_csv(str(file_path))
         file_path = pkg_resources.files(datafiles) / "Jura" / "jura_grid.csv"
-        jura_grid = pd.read_csv(file_path)
+        jura_grid = pd.read_csv(str(file_path))
         file_path = pkg_resources.files(datafiles) / "Jura" / "jura_pred.csv"
-        jura_pred = pd.read_csv(file_path)
+        jura_pred = pd.read_csv(str(file_path))
         return jura_pred, jura_grid, jura_val_loc
     print("No data named " + name + " in the minigst package")
