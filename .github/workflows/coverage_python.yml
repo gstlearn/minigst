@@ -1,0 +1,36 @@
+name: coverage-python
+
+on:
+  workflow_dispatch:
+
+env:
+  PYTHON_VERSION : "3.13"
+
+jobs:
+  coverage-report:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup uv
+      uses: astral-sh/setup-uv@v6
+      with:
+        python-version: ${{env.PYTHON_VERSION}}
+
+    - name: Install Python package & dependencies
+      run: |
+        cd python
+        uv sync
+        uv pip install scikit-learn nbval pytest-cov
+
+    - name: Generate coverage report
+      run: |
+        cd python
+        uv run pytest --nbval-lax --cov=minigst --cov-report html:coverage/cov_html
+
+    - name: Export HTML coverage report as artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: minigst-python-coverage-report
+        path: python/coverage
