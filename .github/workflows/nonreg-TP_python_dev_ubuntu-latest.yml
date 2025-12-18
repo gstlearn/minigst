@@ -95,7 +95,7 @@ jobs:
     - name: Fix pyproject.toml to remove gstlearn version constraint
       run: |
         cd python
-        sed -i 's/gstlearn==.*"/gstlearn"/' pyproject.toml
+        sed -i 's/"gstlearn\[conv,plot\]==.*"/"gstlearn[conv,plot]"/' pyproject.toml
         cat pyproject.toml
 
     - name: Install minigst
