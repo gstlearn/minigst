@@ -25,15 +25,19 @@ def get_all_struct():
     context = gl.CovContext()
     maxDim = []
     for i in range(all_struct.shape[0]):
-        cova = gl.CovAniso.createIsotropic(
-            context, type=gl.ECov.fromKey(all_struct["Name"].iloc[i]), range=1
-        )
+        key = all_struct["Name"].iloc[i]
+        # skip spatio-temporal covariances
+        # TODO use gstlearn methods to filter
+        if "GNEITING" in key:
+            continue
+        cova = gl.CovAniso.createIsotropic(context, type=gl.ECov.fromKey(key), range=1)
         maxDim = maxDim + [cova.getCorFunc().getMaxNDim()]
     maxDim = np.array(maxDim, dtype=np.float64)
     maxDim[maxDim == (maxDim.max())] = np.inf
     maxDim.min(), maxDim.max()
 
     ## Add to Dataframe
+    ## TODO does not contains all gstlearn covariances
     all_struct_bis = pd.DataFrame(
         list(zip(all_struct.iloc[:, 0], all_struct.iloc[:, 0], maxDim)),
         columns=["Name", "Description", "Maximum Dimension"],
