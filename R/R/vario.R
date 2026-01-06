@@ -250,7 +250,7 @@ vario_map<-function(db,vname,gridRes=20){
   setVar(db,vname)
   
   stopifnot(is.numeric(gridRes))
-  grid.vmap = db_vmap(db,nxx = rep(gridRes[1],db$getNDim()))
+  grid.vmap = db_vmap(db, nxx = rep(gridRes[1],db$getNDim()))
   
   if(plot){
     vn1=grid.vmap$getNames("VMAP.*.Var")[1]
