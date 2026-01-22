@@ -1,7 +1,7 @@
 Package: minigst
 Type: Package
 Title: Wrapper package for gstlearn
-Version: 0.1.1
+Version: 0.1.2
 Author: Emilie Chautru, Mike Pereira, Thomas Romary
 Maintainer: Mike Pereira <mike.pereira@minesparis.psl.eu>
 Description: This package provides wrapper functions for an easy access to gstlearn's main tools and functions.
