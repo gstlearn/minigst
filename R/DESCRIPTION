@@ -8,6 +8,6 @@ Description: This package provides wrapper functions for an easy access to gstle
 License: GPL
 Encoding: UTF-8
 LazyData: true
-Imports: gstlearn (== 1.9.0), ggplot2 (>= 4.0.0), ggpubr, ggnewscale (>= 0.5.0)
-Depends: gstlearn (== 1.9.0), ggplot2 (>= 4.0.0), ggpubr, ggnewscale (>= 0.5.0)
+Imports: gstlearn (== 1.10.0), ggplot2 (>= 4.0.0), ggpubr, ggnewscale (>= 0.5.0)
+Depends: gstlearn (== 1.10.0), ggplot2 (>= 4.0.0), ggpubr, ggnewscale (>= 0.5.0)
 RoxygenNote: 7.3.3
