@@ -78,7 +78,7 @@ def encode_if_categorical(arr):
     Returns:
         np.ndarray of floats (integers or nan)
     """
-    if np.issubdtype(arr.dtype, np.number):
+    if type(arr.dtype) is not pd.StringDtype and np.issubdtype(arr.dtype, np.number):
         return arr.astype(float)  # garder float pour gérer nan
     else:
         cat = pd.Categorical(arr)
