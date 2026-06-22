@@ -28,6 +28,9 @@ library(minigst)
 -   another named `target` containing a grid of points covering Scotland with a selection variable (`inshore`) selecting the points that are on land, and a variable (`Elevation`) giving the elevation at every point on land.
 
 ```{r loading_data}
+# Generated variables (ie. simulations) have a new default naming convention
+# Use the old style
+NamingConvention_Naming_Old_Style(TRUE)
 
 ## Data points
 data("Scotland")

@@ -19,7 +19,8 @@ def get_all_struct():
         list(zip(gl.ECov.getAllKeys(), gl.ECov.getAllDescr())),
         columns=["Name", "Description"],
     )
-    all_struct = all_struct.iloc[2:, :]
+    # Remove "FUNCTION" keyword (not a real covariance structure - See ECov.hpp in gstlearn)
+    all_struct = all_struct.iloc[1:, :]
 
     ## Extract maximum allowed dimension
     context = gl.CovContext()
