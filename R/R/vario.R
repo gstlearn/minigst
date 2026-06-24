@@ -206,7 +206,7 @@ vario_cloud<-function(db,vname,dir=NULL, gridRes=100, tolang= 22.5){
   
   varioParam= .createVarioParam(db,dir=dir,tolang=tolang)
   
-  grid.cloud=db_vcloud(db, varioParam,lagnb = gridRes[1], varnb = gridRes[2])
+  grid.cloud=vcloudFromDb(db, varioParam,lagnb = gridRes[1], varnb = gridRes[2])
   if(plot){ #<- Bug quand plot=TRUE
     vn=grid.cloud$getNames("Cloud.*")[1]
     p=dbplot_grid(grid.cloud,color=vn,legendTitle =  "Nb of pairs",cmap='RdBu',
