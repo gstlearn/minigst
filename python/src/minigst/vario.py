@@ -169,9 +169,9 @@ def vario_map(db, vname, grid_res=20):
         raise TypeError("grid_res must be numeric")
 
     # Compute variogram map grid
-    # Equivalent de : db_vmap(db, nxx = rep(gridRes[1], db$getNDim()))
+    # Equivalent de : vmapFromDb(db, nxx = rep(gridRes[1], db$getNDim()))
     n_dim = db.getNDim()  # TODO: adapter selon gstlearn
-    grid_vmap = gl.db_vmap(
+    grid_vmap = gl.vmapFromDb(
         db, nxx=np.repeat(grid_res, n_dim)
     )  # TODO: remplacer par appel correct
 
