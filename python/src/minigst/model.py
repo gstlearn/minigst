@@ -1,6 +1,7 @@
 import gstlearn as gl
 import numpy as np
 import pandas as pd
+
 from .db import set_var
 
 
@@ -56,7 +57,6 @@ def print_all_struct():
     None
     """
     print(get_all_struct())
-    return None
 
 
 def _check_struct_names(struct_names, ndim=None):

@@ -1,8 +1,8 @@
 """Database operations for minigst package."""
 
+import gstlearn as gl
 import numpy as np
 import pandas as pd
-import gstlearn as gl
 
 
 def _check_if_reg_step(yseq, tol_rel_error=1e-6):
@@ -401,7 +401,6 @@ def add_sel(db, sel):
     # Add new selection
     db.addSelection(tab=sel, name="Selection")  # TODO: implement this in your Db class
 
-    return None
 
 
 def clear_sel(db):
@@ -421,7 +420,6 @@ def clear_sel(db):
     # Delete selection columns using a locator function
     db.deleteColumnsByLocator(gl.ELoc.SEL)
 
-    return None
 
 
 def set_var(db, vname, mode="Var"):
@@ -461,4 +459,3 @@ def set_var(db, vname, mode="Var"):
             )
         db.setLocators(vname, gl.ELoc.F)
 
-    return None

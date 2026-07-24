@@ -1,8 +1,8 @@
 """Plotting functions for minigst package."""
 
-import numpy as np
-import matplotlib.pyplot as plt
 import gstlearn as gl
+import matplotlib.pyplot as plt
+import numpy as np
 
 
 def dbplot_point(

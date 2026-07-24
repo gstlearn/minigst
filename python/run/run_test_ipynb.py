@@ -1,16 +1,13 @@
-import sys
 import os
 import re
+import sys
 import tempfile
 
 # Inspired from https://stackoverflow.com/questions/65502005/convert-a-jupyter-notebook-to-html-output-in-native-python
 # See manual here : https://buildmedia.readthedocs.org/media/pdf/nbconvert/latest/nbconvert.pdf
 import nbformat
+from nbconvert import ASCIIDocExporter, HTMLExporter, PDFExporter
 from nbconvert.preprocessors import ExecutePreprocessor
-from nbconvert import ASCIIDocExporter
-from nbconvert import HTMLExporter
-from nbconvert import PDFExporter
-
 
 # This script:
 # - executes a jupyter notebook test script (argv[1])

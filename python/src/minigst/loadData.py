@@ -1,7 +1,8 @@
+import importlib.resources as pkg_resources
+
 import gstlearn as gl
 import pandas as pd
 
-import importlib.resources as pkg_resources
 from . import datafiles
 
 

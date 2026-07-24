@@ -1,6 +1,7 @@
 """Gaussian simulation functions for minigst package."""
 
 import gstlearn as gl
+
 from .kriging import kriging_mean, set_mean
 
 
@@ -65,4 +66,4 @@ def simulate_gauss_rf(
     target.clearLocators(gl.ELoc.Z)
 
     if err != 0:
-        raise RuntimeError("Simulation failed with error code: {}".format(err))
+        raise RuntimeError(f"Simulation failed with error code: {err}")

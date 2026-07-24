@@ -1,7 +1,7 @@
 """Variogram functions for minigst package."""
 
-import numpy as np
 import gstlearn as gl
+import numpy as np
 
 from .plot import dbplot_grid
 

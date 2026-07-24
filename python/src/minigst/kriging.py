@@ -1,10 +1,11 @@
 """Kriging functions for minigst package."""
 
-import numpy as np
 import gstlearn as gl
+import numpy as np
 import pandas as pd
-from .model import add_drifts_to_model
+
 from .db import df_to_db
+from .model import add_drifts_to_model
 
 
 def _create_neigh(neigh):
