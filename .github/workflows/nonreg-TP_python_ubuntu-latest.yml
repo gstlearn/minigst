@@ -39,7 +39,7 @@ jobs:
 
     - name: Install Python dependencies
       run: |
-        uv pip install nbconvert requests ipykernel scikit-learn ruff==0.15.22
+        uv pip install nbconvert requests ipykernel scikit-learn ruff
 
     - name: Check Python formatting
       run: |
