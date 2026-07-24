@@ -43,7 +43,7 @@ def dbplot_point(
         >>> plt.show()
     """
     if ax is None:
-        fig, ax = plt.subplots(figsize=(8, 6))
+        _, ax = plt.subplots(figsize=(8, 6))
 
     # Get coordinates
     coord_names = db.getNamesByLocator(gl.ELoc.X)
@@ -152,7 +152,7 @@ def dbplot_grid(
         >>> plt.show()
     """
     if ax is None:
-        fig, ax = plt.subplots(figsize=(8, 6))
+        _, ax = plt.subplots(figsize=(8, 6))
 
     # Get grid dimensions
     nx = db_grid.getNXs()

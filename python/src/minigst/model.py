@@ -125,7 +125,7 @@ def _check_cov_param(param, name_param, n):
     """
     # Check type
     if not isinstance(param, (int, float, list, tuple)):
-        raise ValueError(
+        raise TypeError(
             f"The argument {name_param} should be numeric, and NA are not allowed."
         )
 
@@ -553,9 +553,11 @@ def eval_cov_matrix(model, db):
     return model.evalCovMat(db).toTL()
 
 
-def eval_drift_matrix(db, pol_drift=None, ext_drift=[]):
+def eval_drift_matrix(db, pol_drift=None, ext_drift=None):
     model = gl.Model.createFromParam()
 
+    if not ext_drift:
+        ext_drift = []
     if isinstance(ext_drift, str):
         ext_drift = [ext_drift]
     add_drifts_to_model(model, pol_drift, len(ext_drift), "ordinary")

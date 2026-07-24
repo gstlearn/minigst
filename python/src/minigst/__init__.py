@@ -27,7 +27,7 @@ from .kriging import (
     regression,
     set_mean,
 )
-from .loadData import data
+from .load_data import data
 from .model import (
     create_model,
     create_model_iso,
@@ -48,7 +48,7 @@ from .plot import (
 )
 from .vario import vario_exp, vario_map
 
-__all__ = [
+__all__ = [  # noqa: RUF022
     "__version__",
     # Database functions
     "data",

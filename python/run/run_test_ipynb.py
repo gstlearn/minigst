@@ -23,7 +23,7 @@ if len(sys.argv) > 3:
 test_output = os.path.join(out_dir, test_name + "." + out_type)
 
 # Read [and hack source notebook in a temporary notebook]
-f = open(test_script, "r", encoding="utf8")
+f = open(test_script, "r", encoding="utf8")  # noqa: SIM115
 if out_type == "asciidoc":
     # Kill some cells that pollute nonregression
     nbs = f.read()
@@ -33,7 +33,7 @@ if out_type == "asciidoc":
     new_file, filename = tempfile.mkstemp(text=True)
     os.write(new_file, nbs.encode("utf8"))
     os.close(new_file)
-    f = open(filename, "r", encoding="utf8")
+    f = open(filename, "r", encoding="utf8")  # noqa: SIM115
 
 # Really read the notebook
 nb = nbformat.read(f, as_version=nbformat.NO_CONVERT)

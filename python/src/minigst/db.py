@@ -44,7 +44,7 @@ def df_to_db(df, coord_names, is_grid=False):
         >>> db = mg.df_to_db(df, coord_names=['x', 'y'])
     """
     if not isinstance(df, pd.DataFrame):
-        raise ValueError("The argument 'df' must be a pandas DataFrame.")
+        raise TypeError("The argument 'df' must be a pandas DataFrame.")
 
     # Check coordinate names
     var_names = list(df.columns)
@@ -105,7 +105,7 @@ def df_to_dbgrid(df, coord_names):
         >>> dbgrid = mg.df_to_dbgrid(df, coord_names=['x', 'y'])
     """
     if not isinstance(df, pd.DataFrame):
-        raise ValueError("The argument 'df' must be a pandas DataFrame.")
+        raise TypeError("The argument 'df' must be a pandas DataFrame.")
 
     var_names = list(df.columns)
     if not all(coord in var_names for coord in coord_names):
@@ -176,7 +176,7 @@ def create_dbgrid(coords=None, nx=None, dx=None, x0=None, coord_names=None):
     """
     if coords is not None:
         if not isinstance(coords, list):
-            raise ValueError("coords must be a list of coordinate arrays.")
+            raise TypeError("coords must be a list of coordinate arrays.")
 
         # Check if coordinates are regularly spaced
         for coord in coords:
@@ -186,11 +186,10 @@ def create_dbgrid(coords=None, nx=None, dx=None, x0=None, coord_names=None):
                 )
 
         ndim = len(coords)
-        if coord_names is not None:
-            if len(coord_names) != ndim:
-                raise ValueError(
-                    f"The size of coord_names ({len(coord_names)}) must match coords ({ndim})."
-                )
+        if coord_names is not None and len(coord_names) != ndim:
+            raise ValueError(
+                f"The size of coord_names ({len(coord_names)}) must match coords ({ndim})."
+            )
 
         # Extract grid parameters from coordinates
         nx = [len(coord) for coord in coords]
@@ -264,7 +263,7 @@ def add_var_to_db(db, var, vname):
                 var = encode_if_categorical(var)
                 db[vname[0]] = var
             else:
-                raise ValueError(
+                raise TypeError(
                     "When adding a single variable: vname must be a string or a list/tuple with a single string."
                 )
         elif var.ndim == 2:
@@ -272,18 +271,18 @@ def add_var_to_db(db, var, vname):
             if isinstance(vname, (list, tuple)) and len(vname) == var.shape[1]:
                 for i, name in enumerate(vname):
                     if not isinstance(name, str):
-                        raise ValueError(
+                        raise TypeError(
                             "vname must be a list/tuple of strings with length matching the number of columns."
                         )
                     val = var[:, i]
                     val = encode_if_categorical(val)
                     db[name] = val
             else:
-                raise ValueError(
+                raise TypeError(
                     "vname must be a list/tuple with length matching the number of columns."
                 )
         else:
-            raise ValueError("var must be 1D or 2D array.")
+            raise TypeError("var must be 1D or 2D array.")
     else:
         # Try to convert to array
         var = np.array(var)
@@ -402,7 +401,6 @@ def add_sel(db, sel):
     db.addSelection(tab=sel, name="Selection")  # TODO: implement this in your Db class
 
 
-
 def clear_sel(db):
     """
     Clear the selection from a Db.
@@ -419,7 +417,6 @@ def clear_sel(db):
     """
     # Delete selection columns using a locator function
     db.deleteColumnsByLocator(gl.ELoc.SEL)
-
 
 
 def set_var(db, vname, mode="Var"):
@@ -458,4 +455,3 @@ def set_var(db, vname, mode="Var"):
                 "Check the variable names: one or several of the supplied names are absent from the Db."
             )
         db.setLocators(vname, gl.ELoc.F)
-

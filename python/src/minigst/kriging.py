@@ -171,12 +171,11 @@ def regression(db, vname, model, pol_drift=None, ext_drift=None, reml=False):
         ...                model=model)
     """
     if not isinstance(vname, str):
-        raise ValueError("You have to specify a single vname")
+        raise TypeError("You have to specify a single vname")
     db.setLocator(vname, gl.ELoc.Z, cleanSameLocator=True)
     db.clearLocators(gl.ELoc.F)
-    if ext_drift is not None:
-        if isinstance(ext_drift, str):
-            ext_drift = [ext_drift]
+    if ext_drift is not None and isinstance(ext_drift, str):
+        ext_drift = [ext_drift]
     db.setLocators(ext_drift, gl.ELoc.F)
     if pol_drift is None:
         pol_drift = 0
@@ -190,10 +189,8 @@ def regression(db, vname, model, pol_drift=None, ext_drift=None, reml=False):
     print("Intercept:", np.round(beta[0], 5))
     for i in range(1, len(beta) - db.getNLoc(gl.ELoc.F)):
         print(d.getDrift(i), ":", np.round(beta[i], 5))
-    s = 0
-    for i in range(len(beta) - db.getNLoc(gl.ELoc.F), len(beta)):
+    for s, i in enumerate(range(len(beta) - db.getNLoc(gl.ELoc.F), len(beta))):
         print(db.getNameByLocator(gl.ELoc.F, s), ":", np.round(beta[i], 5))
-        s += 1
 
 
 def minixvalid(
