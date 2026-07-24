@@ -108,13 +108,13 @@ minikriging(obsDb, targetDb, vname="Elevation", model=model, std=TRUE)
 **Python:**
 ```python
 # Compute variogram
-vario = mg.vario_exp(db, vname='Elevation', nlag=20, dlag=10.0)
+vario = mg.vario_exp(db, vname="Elevation", nlag=20, dlag=10.0)
 
 # Fit model
-model = mg.model_fit(vario, struct=['NUGGET', 'SPHERICAL'])
+model = mg.model_fit(vario, struct=["NUGGET", "SPHERICAL"])
 
 # Kriging
-mg.minikriging(obs_db, target_db, vname='Elevation', model=model, std=True)
+mg.minikriging(obs_db, target_db, vname="Elevation", model=model, std=True)
 ```
 
 ### Plotting
@@ -131,6 +131,6 @@ print(plt)
 import matplotlib.pyplot as plt
 
 # Create plot
-ax = mg.dbplot_point(db, size='Elevation', color='Longitude')
+ax = mg.dbplot_point(db, size="Elevation", color="Longitude")
 plt.show()
 ```

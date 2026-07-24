@@ -69,8 +69,8 @@ pytest tests/
 Example test:
 ```python
 def test_df_to_db():
-    df = pd.DataFrame({'x': [0, 1], 'y': [0, 1], 'z': [1, 2]})
-    db = mg.df_to_db(df, coord_names=['x', 'y'])
+    df = pd.DataFrame({"x": [0, 1], "y": [0, 1], "z": [1, 2]})
+    db = mg.df_to_db(df, coord_names=["x", "y"])
     assert db.NSample() == 2
 ```
 

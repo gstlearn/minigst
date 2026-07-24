@@ -20,8 +20,8 @@ Create a gstlearn Db object from a pandas DataFrame.
 import pandas as pd
 import minigst as mg
 
-df = pd.DataFrame({'x': [0, 1, 2], 'y': [0, 1, 2], 'z': [1, 2, 3]})
-db = mg.df_to_db(df, coord_names=['x', 'y'])
+df = pd.DataFrame({"x": [0, 1, 2], "y": [0, 1, 2], "z": [1, 2, 3]})
+db = mg.df_to_db(df, coord_names=["x", "y"])
 ```
 
 ### `df_to_db_grid(df, coord_names)`
@@ -55,7 +55,7 @@ import minigst as mg
 # Using coordinate arrays
 xseq = np.linspace(0, 1, 100)
 yseq = np.linspace(0, 1, 100)
-db_grid = mg.create_db_grid(coords=[xseq, yseq], coord_names=['x', 'y'])
+db_grid = mg.create_db_grid(coords=[xseq, yseq], coord_names=["x", "y"])
 
 # Using grid parameters
 db_grid = mg.create_db_grid(nx=[100, 100], dx=[0.01, 0.01], x0=[0, 0])
@@ -183,10 +183,10 @@ Fit a variogram model to experimental variogram.
 import minigst as mg
 
 # Compute experimental variogram
-vario = mg.vario_exp(db, vname='elevation', nlag=20, dlag=10.0)
+vario = mg.vario_exp(db, vname="elevation", nlag=20, dlag=10.0)
 
 # Fit model
-model = mg.model_fit(vario, struct=['NUGGET', 'SPHERICAL'])
+model = mg.model_fit(vario, struct=["NUGGET", "SPHERICAL"])
 ```
 
 ## Kriging (`minigst.kriging`)
@@ -212,8 +212,9 @@ Compute kriging predictions.
 ```python
 import minigst as mg
 
-mg.minikriging(obs_db, target_db, vname='temperature', 
-               model=model, type='ordinary', std=True)
+mg.minikriging(
+    obs_db, target_db, vname="temperature", model=model, type="ordinary", std=True
+)
 ```
 
 ### `minixvalid(dbin, vname, model, type='ordinary', ...)`
@@ -261,8 +262,7 @@ import minigst as mg
 mg.simulate_gauss_rf(target_db, model, nsim=5, seed=12345)
 
 # Conditional simulation
-mg.simulate_gauss_rf(target_db, model, nsim=5, 
-                     dbcond=obs_db, vcond='observations')
+mg.simulate_gauss_rf(target_db, model, nsim=5, dbcond=obs_db, vcond="observations")
 ```
 
 ## Available Variogram Structures
