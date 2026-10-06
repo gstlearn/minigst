@@ -29,8 +29,10 @@ library(minigst)
 
 ```{r loading_data}
 # Generated variables (ie. simulations) have a new default naming convention
+# The simulation outcoles are stored in separate variables.
 # Use the old style
-NamingConvention_Naming_Old_Style(TRUE)
+NamingConvention_setOldStyle(TRUE)
+Db_setOldStyle(TRUE)
 
 ## Data points
 data("Scotland")
@@ -103,7 +105,7 @@ minirgrf(target, model, nsim = 10, ntuba = 1000, dbcond = dat, vcond = "January_
 
 # Plots
 for (i in 1:10){
-  p = dbplot_grid(db=target,color=paste0("Simu.January_temp.",i), cmap = "Spectral", 
+  p = dbplot_grid(db=target,color=paste0("Simu.January_temp.S",i), cmap = "Spectral", 
                   legendTitle= "Value", title = paste0("Conditional Simulation ", i))
   p = addPoints(p,dat["x1"],dat["x2"], shape=18, size=1.5)
   print(p)
