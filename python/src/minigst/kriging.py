@@ -190,11 +190,7 @@ def regression(db, vname, model, pol_drift=None, ext_drift=None, reml=False):
     for i in range(1, len(beta) - db.getNLoc(gl.ELoc.F)):
         print(d.getDrift(i), ":", np.round(beta[i], 5))
     for s, i in enumerate(range(len(beta) - db.getNLoc(gl.ELoc.F), len(beta))):
-        print(
-            db.getName(gl.RoleID(gl.ELocToERole(gl.ELoc.F), s)),
-            ":",
-            np.round(beta[i], 5),
-        )
+        print(db.getName(gl.RoleID(gl.ELoc.F), s), ":", np.round(beta[i], 5))
 
 
 def minixvalid(
