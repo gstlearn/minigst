@@ -192,6 +192,7 @@ def regression(db, vname, model, pol_drift=None, ext_drift=None, reml=False):
     for s, i in enumerate(range(len(beta) - db.getNLoc(gl.ELoc.F), len(beta))):
         print(db.getName(gl.ELoc.F, s), ":", np.round(beta[i], 5))
 
+
 def minixvalid(
     dbin,
     vname,
