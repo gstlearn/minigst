@@ -29,7 +29,6 @@ library(minigst)
 
 ```{r loading_data}
 # Generated variables (ie. simulations) have a new default naming convention
-# The simulation outcoles are stored in separate variables.
 # Use the old style
 NamingConvention_setOldStyle(TRUE)
 Db_setOldStyle(TRUE)
