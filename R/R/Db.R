@@ -28,7 +28,7 @@
   if(is.null(names)){
     return(invisible(NULL))
   }
-  vn=db$getNamesNew(toERole(Loc))
+  vn=db$getNames(toERole(Loc))
   if(length(vn)>length(names)){
     stop("The vector of names should be of the same size as (or greater than) the number of variables.")
   }
@@ -537,8 +537,8 @@ summaryStats<-function(db,vname,stat=NULL,onlyCommon=FALSE){
     id_dat=1:nrow(db[])
   }
   
-  if(length(db$getNamesNew(ERole_SEL())>0)){
-    id_dat=intersect(id_dat,which(apply(as.matrix(db[db$getNamesNew(ERole_SEL())]),1,prod)==1))
+  if(length(db$getNames(ERole_SEL())>0)){
+    id_dat=intersect(id_dat,which(apply(as.matrix(db[db$getNames(ERole_SEL())]),1,prod)==1))
   }
   
   
@@ -622,7 +622,7 @@ migrateVar<-function(dbin,dbout,vname=NULL,prefix=NULL,
   dbin_t["idOrigin"]=1:nrow(dbin_t[])
   
   if(is.null(vname)){
-    vnames=setdiff(colnames(dbin_t[]),dbin_t$getNamesNew(ERole_X()))
+    vnames=setdiff(colnames(dbin_t[]),dbin_t$getNamesyLocator(ELoc_X()))
   }else{
     .checkVariableNames(dbin_t,vname)
     vnames=vname

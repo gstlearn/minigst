@@ -329,7 +329,7 @@ def kriging_mean(db, vname, model):
     db.setLocator("_sel_temp", gl.ELoc.SEL)
 
     # # Create target at data points
-    # coord_names = db.getNamesNew(gl.ERole.X)
+    # coord_names = db.getNames(gl.ERole.X)
     # coords = []
     # for i, name in enumerate(coord_names):
     #     coords.append(db.getCenters(useSel=True)[i])
@@ -388,7 +388,7 @@ def kriging_mean(db, vname, model):
     )
 
     # Calculate kriging mean
-    ok_vals = tgt[tgt.getNamesNew(gl.ERole.Z)[0]]
+    ok_vals = tgt[tgt.getNames(gl.ERole.Z)[0]]
     sk0_vals = tgt["SK0." + vname + ".estim"]
     sk1_vals = tgt["SK1." + vname + ".estim"]
 
@@ -442,7 +442,7 @@ def set_mean(model, mu):
 
 #     # Create target at data points
 #     coords = []
-#     coord_names = db.getNamesNew(gl.ERole.X)
+#     coord_names = db.getNames(gl.ERole.X)
 #     for name in coord_names:
 #         coords.append(db[name][sel])
 
@@ -474,7 +474,7 @@ def set_mean(model, mu):
 #                     namconv=gl.NamingConvention("OK"))
 
 #     # Calculate kriging mean
-#     ok_vals = tgt[tgt.getNamesNew(gl.ERole.Z)[0]]
+#     ok_vals = tgt[tgt.getNames(gl.ERole.Z)[0]]
 #     sk0_vals = tgt["SK0." + vname + ".estim"]
 #     sk1_vals = tgt["SK1." + vname + ".estim"]
 

@@ -73,8 +73,8 @@ dbplot_point<-function(db,color=NULL,cat_color=NULL,size=NULL,
   }
   
   df=db[]
-  xname=db$getNamesNew(ERole_X())
-  selnames=db$getNamesNew(ERole_SEL())
+  xname=db$getNames(ERole_X())
+  selnames=db$getNames(ERole_SEL())
   if(length(selnames)>0){
     selvec=(apply(as.matrix(df[selnames]),1,prod)==1)
     df=df[selvec,]
@@ -327,12 +327,12 @@ dbplot_grid<-function(db,color=NULL,cat_color=NULL,contour=NULL,
   
   df=db[]
   ## Extract name of coordinates
-  xname0=db$getNamesNew(ERole_X())
+  xname0=db$getNames(ERole_X())
   ## Copy coordinates 
   xname=paste0(xname0,"_copy")
   df[,xname]=df[,xname0]
   ## Extarct and apply selection
-  selnames=db$getNamesNew(ERole_SEL())
+  selnames=db$getNames(ERole_SEL())
   if(length(selnames)>0){
     selvec=apply(as.matrix(df[selnames]),1,prod)
     selvec[selvec==0]=NA
