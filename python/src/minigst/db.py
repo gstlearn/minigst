@@ -343,7 +343,7 @@ def summary_stats(db, vname, stat=None, only_common=False):
     df = pd.DataFrame(db_dict)
 
     # Apply selection if it exists
-    sel_names = db.getNamesByLocator(gl.ELoc.SEL)
+    sel_names = db.getNamesNew(gl.ERole.SEL)
     if len(sel_names) > 0:
         sel_values = db[sel_names[0]]
         df = df[sel_values == 1]

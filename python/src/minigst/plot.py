@@ -46,7 +46,7 @@ def dbplot_point(
         _, ax = plt.subplots(figsize=(8, 6))
 
     # Get coordinates
-    coord_names = db.getNamesByLocator(gl.ELoc.X)
+    coord_names = db.getNamesNew(gl.ERole.X)
     if len(coord_names) < 2:
         raise ValueError("Db must have at least 2 coordinate dimensions.")
 
@@ -54,7 +54,7 @@ def dbplot_point(
     y = db[coord_names[1]]
 
     # Apply selection if it exists
-    sel_names = db.getNamesByLocator(gl.ELoc.SEL)
+    sel_names = db.getNamesNew(gl.ERole.SEL)
     if len(sel_names) > 0:
         sel_values = db[sel_names[0]]
         mask = sel_values == 1
@@ -160,7 +160,7 @@ def dbplot_grid(
         raise ValueError("dbplot_grid only supports 2D grids.")
 
     # Get coordinates
-    coord_names = db_grid.getNamesByLocator(gl.ELoc.X)
+    coord_names = db_grid.getNamesNew(gl.ERole.X)
     x0 = db_grid.getX0s()
     dx = db_grid.getDXs()
 
