@@ -416,7 +416,7 @@ def clear_sel(db):
         >>> mg.clear_sel(db=db)
     """
     # Delete selection columns using a locator function
-    db.deleteColumnsByLocator(gl.ELoc.SEL)
+    db.deleteColumnsNew(ERole.SEL)
 
 
 def set_var(db, vname, mode="Var"):

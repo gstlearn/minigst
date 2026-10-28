@@ -427,7 +427,7 @@ addSel<-function(db,sel){
 #' @export
 #'
 clearSel<-function(db){
-  db$deleteColumnsByLocator(ELoc_SEL())
+  db$deleteColumnsNew(ERole.SEL)
   return(invisible(NULL))
 }
 
