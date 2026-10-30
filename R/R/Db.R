@@ -224,7 +224,7 @@ dfToDb<-function(df,coordnames,isGrid=FALSE){
     data = Db() # creating the data base
     for (vn in var_name) {data[vn] = suppressWarnings(as.numeric(df[,vn]))}
     ## Set coordinates
-    err = data$setLocators(names = coordnames, locatorType = ELoc_X(), cleanSameLocator = TRUE)
+    err = data$setLocators(coordnames, locatorType = ELoc_X(), cleanSameLocator = TRUE)
     
     return(data)
     
@@ -258,7 +258,7 @@ dfToDb<-function(df,coordnames,isGrid=FALSE){
         data = Db() # creating the data base
         for (vn in var_name) {data[vn] = suppressWarnings(as.numeric(df[,vn]))}
         ## Set coordinates
-        err = data$setLocators(names = coordnames, locatorType = ELoc_X(), cleanSameLocator = TRUE)
+        err = data$setLocators(coordnames, locatorType = ELoc_X(), cleanSameLocator = TRUE)
         
         DbGrid_migrateAllVariables(data,dbG,flagAddSampleRank = FALSE)
       }
@@ -266,7 +266,7 @@ dfToDb<-function(df,coordnames,isGrid=FALSE){
       data = Db() # creating the data base
       for (vn in var_name) {data[vn] = suppressWarnings(as.numeric(df[,vn]))}
       ## Set coordinates
-      err = data$setLocators(names = coordnames, locatorType = ELoc_X(), cleanSameLocator = TRUE)
+      err = data$setLocators(coordnames, locatorType = ELoc_X(), cleanSameLocator = TRUE)
       ddx = NULL
       for(i in 1:ndim){
         ddx=c(ddx,unique(diff(coords[[i]])))
@@ -370,7 +370,7 @@ addVarToDb<-function(db,var,vname){
 delVarFromDb<-function(db,vname){
   for(v in vname){
     if(v %in% colnames(db[])){
-      db$deleteColumns(names = v)
+      db$deleteColumns(v)
     }
   }
   return(invisible(NULL))
@@ -417,7 +417,7 @@ addSel<-function(db,sel){
   if(length(sel)!=nrow(db[])){
     stop(paste0("The size of the selection vector (",length(sel), ") should be the same as the number of points in the Db (",nrow(db[]),")"))
   }
-  db$deleteColumns(names = "Selection")
+  db$deleteColumns("Selection")
   err=db$addSelection(tab = sel, name = "Selection")
   return(invisible(NULL))
 }
@@ -427,7 +427,7 @@ addSel<-function(db,sel){
 #' @export
 #'
 clearSel<-function(db){
-  db$deleteColumnsNew(ERole.SEL)
+  db$deleteColumns(ERole.SEL())
   return(invisible(NULL))
 }
 

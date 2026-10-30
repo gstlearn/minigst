@@ -395,7 +395,7 @@ def add_sel(db, sel):
         )
 
     # Delete any existing 'Selection' column
-    db.deleteColumns(names="Selection")  # TODO: implement this in your Db class
+    db.deleteColumns("Selection")  # TODO: implement this in your Db class
 
     # Add new selection
     db.addSelection(tab=sel, name="Selection")  # TODO: implement this in your Db class
@@ -416,7 +416,7 @@ def clear_sel(db):
         >>> mg.clear_sel(db=db)
     """
     # Delete selection columns using a locator function
-    db.deleteColumnsNew(ERole.SEL)
+    db.deleteColumns(gl.ERole.SEL)
 
 
 def set_var(db, vname, mode="Var"):

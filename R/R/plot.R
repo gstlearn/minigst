@@ -698,8 +698,8 @@ plot_scatter<-function (db,vnamex,vnamey,
   p = plot.init()
   
   res = correlationPairs(db, db, vnamex, vnamey)
-  x = db$getValuesByNames(res[[1]], vnamex)
-  y = db$getValuesByNames(res[[2]], vnamey)
+  x = db$getValues(vnamex, res[[1]])
+  y = db$getValues(vnamey, res[[2]])
   
   if (asPoints)
     p = p + plot.XY(x, y, flagLine=FALSE, flagPoint=TRUE)
