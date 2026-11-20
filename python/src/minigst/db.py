@@ -398,7 +398,7 @@ def add_sel(db, sel):
     db.deleteColumns("Selection")  # TODO: implement this in your Db class
 
     # Add new selection
-    db.addOneSelection("Selection", tab=sel)  # TODO: implement this in your Db class
+    db.addSelection("Selection", tab=sel)  # TODO: implement this in your Db class
 
 
 def clear_sel(db):

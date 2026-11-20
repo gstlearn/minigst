@@ -278,7 +278,7 @@ dfToDb<-function(df,coordnames,isGrid=FALSE){
       err = migrateMulti(dbin=data, dbout = dbG,  names = names(df)[(ndim+1):length(var_name)], namconv=NamingConvention())
       err=Db_clearLocators(dbG,ELoc_Z())
       # gérer la sélection
-      res = dbG$addOneSelection("Sel_Not_NA", tab = !is.na(dbG[var_name[ndim+1]]))
+      res = dbG$addSelection("Sel_Not_NA", tab = !is.na(dbG[var_name[ndim+1]]))
     }
     return(dbG)
     
@@ -418,7 +418,7 @@ addSel<-function(db,sel){
     stop(paste0("The size of the selection vector (",length(sel), ") should be the same as the number of points in the Db (",nrow(db[]),")"))
   }
   db$deleteColumns("Selection")
-  err=db$addOneSelection("Selection", tab = sel)
+  err=db$addSelection("Selection", tab = sel)
   return(invisible(NULL))
 }
 
@@ -633,7 +633,7 @@ migrateVar<-function(dbin,dbout,vname=NULL,prefix=NULL,
     err = migrateMulti(dbin = dbin_t, dbout = dbout_t,  names = vnames,
                        namconv = NamingConvention())
     if(addSelNotNA){
-      res = dbout_t$addOneSelection("Sel_Not_NA", tab = !is.na(dbout_t[]["idOrigin"]))
+      res = dbout_t$addSelection("Sel_Not_NA", tab = !is.na(dbout_t[]["idOrigin"]))
     }
     if(!addIdOrigin){
       delVarFromDb(dbout_t,"idOrigin")
@@ -643,7 +643,7 @@ migrateVar<-function(dbin,dbout,vname=NULL,prefix=NULL,
     err = migrateMulti(dbin =dbin_t, dbout = dbout_t,  names = vnames,
                        namconv=NamingConvention(prefix))
     if(addSelNotNA){
-      res = dbout_t$addOneSelection("Sel_Not_NA", tab = !is.na(dbout_t[][paste0(prefix,".","idOrigin")]))
+      res = dbout_t$addSelection("Sel_Not_NA", tab = !is.na(dbout_t[][paste0(prefix,".","idOrigin")]))
     }
     if(!addIdOrigin){
       delVarFromDb(dbout_t,paste0(prefix,".","idOrigin"))
