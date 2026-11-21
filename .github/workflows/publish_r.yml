@@ -33,7 +33,7 @@ jobs:
       project_full_version: ${{ steps.main_step.outputs.PROJECT_FULL_VERSION }}
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
 
     - name: Setup R Version
       uses: r-lib/actions/setup-r@v2
@@ -72,12 +72,12 @@ jobs:
         python3 -m grip R/README.md --export R/R_README.html
         echo "R_README_FILE=$(ls R/R_README.html)" >> "$GITHUB_ENV"
 
-    - uses: actions/upload-artifact@v4
+    - uses: actions/upload-artifact@v7
       with:
         name: r-readme
         path: ${{env.R_README_FILE}}
-        
-    - uses: actions/upload-artifact@v4
+
+    - uses: actions/upload-artifact@v7
       with:
         name: r-package
         path: ${{env.MY_PKG}}
@@ -87,7 +87,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
 
     - uses: actions/download-artifact@v4
       with:
@@ -145,4 +145,3 @@ jobs:
       - uses: geekyeggo/delete-artifact@v5
         with:
           name: r-package
-

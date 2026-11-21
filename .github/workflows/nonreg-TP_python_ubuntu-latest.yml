@@ -29,10 +29,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
 
     - name: Setup uv
-      uses: astral-sh/setup-uv@v6
+      uses: astral-sh/setup-uv@1db35dd8eee11c5894872e0b383ae6c406cf738d
       with:
         python-version: ${{env.PYTHON_VERSION}}
         activate-environment: true
@@ -66,7 +66,7 @@ jobs:
 
     - name: Publish output logs as artefact
       if: always()
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: TP-python-logs
         path: ~/minigst_out/TP-python-logs_dev.tar.gz

@@ -33,7 +33,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
       with:
         ref: dev
 
@@ -69,7 +69,7 @@ jobs:
     - name: Run sccache-cache
       uses: mozilla-actions/sccache-action@v0.0.9
 
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
       with:
         repository: gstlearn/gstlearn
         path: ${{env.GSTLEARN_ROOT}}
@@ -118,7 +118,7 @@ jobs:
 
     - name: Publish output logs as artefact
       if: always()
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: TP-r-logs
         path: ~/minigst_out/TP-r-logs_dev.tar.gz
